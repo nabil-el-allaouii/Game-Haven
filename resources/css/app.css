@@ -28,6 +28,10 @@
     --custom-color: #6366f1;
 }
 
+.admin-addgame :root {
+    --custom-color: #6C3BF7;
+}
+
 .text-custom {
     color: var(--custom-color);
 }

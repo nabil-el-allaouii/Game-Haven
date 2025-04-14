@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
 
 Route::get('/', function () {
     return view('index');
@@ -27,3 +28,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',function(){
     return view('admin.dashboard');
 });
+
+Route::get('/add-game' , function(){
+    return view('admin.game_add');
+});
+Route::post('/add-game',[GameController::class,'store'])->name('add-game');
