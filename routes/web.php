@@ -23,3 +23,7 @@ Route::middleware('auth')->group(function () {
         return view('profile.profile');
     })->name('profile');
 });
+
+Route::get('/admin',function(){
+    return view('admin.dashboard');
+});

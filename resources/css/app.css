@@ -24,6 +24,10 @@
     --custom-color: #6C3BF7;
 }
 
+.admin-dashboard :root {
+    --custom-color: #6366f1;
+}
+
 .text-custom {
     color: var(--custom-color);
 }
