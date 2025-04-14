@@ -19,6 +19,11 @@
     --custom-color: #03a9f4;
 }
 
+/* Override custom color for specific pages */
+.profile-page :root {
+    --custom-color: #6C3BF7;
+}
+
 .text-custom {
     color: var(--custom-color);
 }

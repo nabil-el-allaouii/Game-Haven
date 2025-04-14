@@ -12,7 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'AlreadyAuth'=> \App\Http\Middleware\RedirectIfAuthenticated::class
+            'AlreadyAuth'=> \App\Http\Middleware\RedirectIfAuthenticated::class,
+            'auth'=> \App\Http\Middleware\CheckAuth::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
