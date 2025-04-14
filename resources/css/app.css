@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for GameHaven */
+:root {
+    --custom-color: #03a9f4;
+}
+
+.text-custom {
+    color: var(--custom-color);
+}
+
+.text-custom\/80 {
+    color: color-mix(in srgb, var(--custom-color) 80%, transparent);
+}
+
+.bg-custom {
+    background-color: var(--custom-color);
+}
+
+.bg-custom\/90 {
+    background-color: color-mix(in srgb, var(--custom-color) 90%, transparent);
+}
+
+.hover\:bg-custom\/90:hover {
+    background-color: color-mix(in srgb, var(--custom-color) 90%, transparent);
+}
+
+.hover\:text-custom\/80:hover {
+    color: color-mix(in srgb, var(--custom-color) 80%, transparent);
+}
+
+.hover\:text-custom:hover {
+    color: var(--custom-color);
+}
+
+.focus\:border-custom:focus {
+    border-color: var(--custom-color);
+}
+
+.focus\:ring-custom:focus {
+    --tw-ring-color: var(--custom-color);
+}
+
+.focus\:ring-1:focus {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+. !rounded-button {
+    border-radius: 0.375rem !important;
+}
