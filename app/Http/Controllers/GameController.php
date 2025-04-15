@@ -36,4 +36,8 @@ class GameController extends Controller
         }
         return redirect('/add-game');
     }
+    public function showGames(){
+        $games = Game::with('genres')->get();
+        return view('admin.dashboard', compact('games'));
+    }
 }

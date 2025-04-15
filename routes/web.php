@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',function(){
     return view('admin.dashboard');
 });
+Route::get('/admin',[GameController::class,'showGames'])->name('admin.games');
 
 Route::get('/add-game' , function(){
     return view('admin.game_add');

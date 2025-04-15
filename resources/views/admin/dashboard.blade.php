@@ -33,7 +33,8 @@
                     <i class="fas fa-users w-6"></i>
                     <span>Users</span>
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800">
+                <a href="#" onclick="showSection('games')"
+                    class="nav-link flex items-center px-4 py-3 text-gray-300 hover:bg-gray-800" data-section="games">
                     <i class="fas fa-gamepad w-6"></i>
                     <span>Games</span>
                 </a>
@@ -313,6 +314,106 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Games Section -->
+            <div id="games-section" class="section-content hidden">
+                <header class="bg-white shadow">
+                    <div class="px-6 py-4 flex items-center justify-between">
+                        <h1 class="text-2xl font-semibold text-gray-900">Game Management</h1>
+                        <div class="flex items-center space-x-4">
+                            <a href="/add-game">
+                                <button class="!rounded-button bg-custom text-white px-4 py-2">
+                                    <i class="fas fa-plus mr-2"></i>Add New Game
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="p-6">
+                    <!-- Search and Filter Section -->
+                    <div class="bg-white rounded-lg shadow mb-6">
+                        <div class="p-4 flex flex-wrap gap-4 items-center justify-between">
+                            <div class="flex-1 min-w-[200px]">
+                                <div class="relative">
+                                    <input type="text" placeholder="Search games..."
+                                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-custom focus:border-custom">
+                                    <i
+                                        class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <select
+                                    class="border border-gray-300 rounded-md px-4 py-2 focus:ring-custom focus:border-custom">
+                                    <option>All Genres</option>
+                                    <option>Action</option>
+                                    <option>Adventure</option>
+                                    <option>RPG</option>
+                                    <option>Strategy</option>
+                                    <option>Sports</option>
+                                </select>
+                                <select
+                                    class="border border-gray-300 rounded-md px-4 py-2 focus:ring-custom focus:border-custom">
+                                    <option>Sort By</option>
+                                    <option>Newest</option>
+                                    <option>Oldest</option>
+                                    <option>Most Popular</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        @foreach ($games as $game)
+                            <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col">
+                                <div class="relative">
+                                    <img class="h-48 w-full object-cover"
+                                        src="{{ $game->cover}}"
+                                        alt="{{$game->gameTitle}}">
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-white font-semibold">{{$game->price}}$</span>
+                                            <div class="flex items-center">
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <span class="ml-1 text-white text-sm">{{$game->rating}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 flex-grow">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">{{$game->gameTitle}}</h3>
+                                    <div class="text-xs text-gray-500 mb-2">Released: {{$game->release}}</div>
+                                    <div class="flex flex-wrap gap-1 mb-3">
+                                        @foreach ($game->genres as $genre)
+                                            <span
+                                                class="px-2 py-1 text-xs font-medium rounded bg-blue-100 text-blue-800">{{$genre->genre}}</span>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="border-t border-gray-200 px-4 py-3 bg-gray-50">
+                                    <div>
+                                        <button class="text-custom hover:text-custom-600 mr-3 cursor-pointer" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900 mr-3 cursor-pointer" title="Promote">
+                                            <i class="fas fa-award"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900 cursor-pointer" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                    <!-- Pagination -->
                 </div>
             </div>
         </main>
