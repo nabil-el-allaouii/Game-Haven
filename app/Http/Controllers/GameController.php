@@ -40,4 +40,9 @@ class GameController extends Controller
         $games = Game::with('genres')->get();
         return view('admin.dashboard', compact('games'));
     }
+    public function destroy($id){
+        $game = Game::find($id);
+        $game->delete();
+        return redirect('/admin');
+    }
 }

@@ -34,3 +34,4 @@ Route::get('/add-game' , function(){
     return view('admin.game_add');
 });
 Route::post('/add-game',[GameController::class,'store'])->name('add-game');
+Route::delete('/admin/{id}',[GameController::class,'destroy'])->name('admin.games.destroy');

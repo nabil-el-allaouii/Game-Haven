@@ -371,7 +371,7 @@
                         id="games-grid">
                         @foreach ($games as $index => $game)
                             <div class="game-card bg-white rounded-lg shadow overflow-hidden flex flex-col"
-                                style="{{ $index >= 8 ? 'display: none;' : '' }}">
+                                style="{{ $index >= 4 ? 'display: none;' : '' }}">
                                 <div class="relative">
                                     <img class="h-48 w-full object-cover" src="{{ $game->cover }}"
                                         alt="{{ $game->gameTitle }}">
@@ -397,7 +397,7 @@
                                     </div>
                                 </div>
                                 <div class="border-t border-gray-200 px-4 py-3 bg-gray-50">
-                                    <div>
+                                    <div class="flex items-center">
                                         <button class="text-custom hover:text-custom-600 mr-3 cursor-pointer"
                                             title="Edit">
                                             <i class="fas fa-edit"></i>
@@ -406,9 +406,15 @@
                                             title="Promote">
                                             <i class="fas fa-award"></i>
                                         </button>
-                                        <button class="text-red-600 hover:text-red-900 cursor-pointer" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <form action="{{ Route('admin.games.destroy', $game->id) }}" method="POST"
+                                            class="inline m-0">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900 cursor-pointer" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -428,17 +434,16 @@
     </div>
 
     <script>
-        // Function to show/hide sections
         function showSection(sectionName) {
-            // Hide all sections
+
             document.querySelectorAll('.section-content').forEach(section => {
                 section.classList.add('hidden');
             });
 
-            // Show the selected section
+
             document.getElementById(`${sectionName}-section`).classList.remove('hidden');
 
-            // Update active nav link
+
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.dataset.section === sectionName) {
                     link.classList.add('bg-custom', 'text-white');
@@ -450,7 +455,6 @@
             });
         }
 
-        // Initialize ECharts (keep your existing chart code)
         document.addEventListener('DOMContentLoaded', function() {
             const activityChart = echarts.init(document.getElementById('activityChart'));
             const option = {
@@ -495,7 +499,7 @@
             window.addEventListener('resize', () => activityChart.resize());
         });
 
-        let visibleCount = 8;
+        let visibleCount = 4;
         const step = 4;
 
         document.getElementById('show-more').addEventListener('click', () => {
@@ -504,25 +508,15 @@
 
             for (let i = 0; i < games.length; i++) {
                 if (i >= visibleCount && shownCount < step) {
-                    games[i].style.display = ''; // Show the game
+                    games[i].style.display = '';
                     shownCount++;
                 }
             }
 
             visibleCount += shownCount;
 
-            // Hide the button if all games are shown
             if (visibleCount >= games.length) {
                 document.getElementById('show-more').style.display = 'none';
-            }
-
-            // Update the button text to show remaining count
-            const remaining = games.length - visibleCount;
-            if (remaining > 0) {
-                document.getElementById('show-more').innerHTML = `
-                    <i class="fas fa-plus-circle mr-2"></i>
-                    Show More (${remaining} remaining)
-                `;
             }
         });
     </script>
