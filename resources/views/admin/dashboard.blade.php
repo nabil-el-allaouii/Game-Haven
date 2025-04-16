@@ -367,40 +367,43 @@
                         </div>
                     </div>
 
-                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        @foreach ($games as $game)
-                            <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col">
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        id="games-grid">
+                        @foreach ($games as $index => $game)
+                            <div class="game-card bg-white rounded-lg shadow overflow-hidden flex flex-col"
+                                style="{{ $index >= 8 ? 'display: none;' : '' }}">
                                 <div class="relative">
-                                    <img class="h-48 w-full object-cover"
-                                        src="{{ $game->cover}}"
-                                        alt="{{$game->gameTitle}}">
+                                    <img class="h-48 w-full object-cover" src="{{ $game->cover }}"
+                                        alt="{{ $game->gameTitle }}">
                                     <div
                                         class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
                                         <div class="flex justify-between items-center">
-                                            <span class="text-white font-semibold">{{$game->price}}$</span>
+                                            <span class="text-white font-semibold">{{ $game->price }}$</span>
                                             <div class="flex items-center">
                                                 <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                                <span class="ml-1 text-white text-sm">{{$game->rating}}</span>
+                                                <span class="ml-1 text-white text-sm">{{ $game->rating }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-4 flex-grow">
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">{{$game->gameTitle}}</h3>
-                                    <div class="text-xs text-gray-500 mb-2">Released: {{$game->release}}</div>
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ $game->gameTitle }}</h3>
+                                    <div class="text-xs text-gray-500 mb-2">Released: {{ $game->release }}</div>
                                     <div class="flex flex-wrap gap-1 mb-3">
                                         @foreach ($game->genres as $genre)
                                             <span
-                                                class="px-2 py-1 text-xs font-medium rounded bg-blue-100 text-blue-800">{{$genre->genre}}</span>
+                                                class="px-2 py-1 text-xs font-medium rounded bg-blue-100 text-blue-800">{{ $genre->genre }}</span>
                                         @endforeach
                                     </div>
                                 </div>
                                 <div class="border-t border-gray-200 px-4 py-3 bg-gray-50">
                                     <div>
-                                        <button class="text-custom hover:text-custom-600 mr-3 cursor-pointer" title="Edit">
+                                        <button class="text-custom hover:text-custom-600 mr-3 cursor-pointer"
+                                            title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="text-yellow-600 hover:text-yellow-900 mr-3 cursor-pointer" title="Promote">
+                                        <button class="text-yellow-600 hover:text-yellow-900 mr-3 cursor-pointer"
+                                            title="Promote">
                                             <i class="fas fa-award"></i>
                                         </button>
                                         <button class="text-red-600 hover:text-red-900 cursor-pointer" title="Delete">
@@ -410,10 +413,15 @@
                                 </div>
                             </div>
                         @endforeach
-
                     </div>
 
-                    <!-- Pagination -->
+                    <div class="flex justify-center items-center mt-8">
+                        <button id="show-more"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fas fa-plus-circle mr-2"></i>
+                            Show More Games
+                        </button>
+                    </div>
                 </div>
             </div>
         </main>
@@ -485,6 +493,37 @@
             };
             activityChart.setOption(option);
             window.addEventListener('resize', () => activityChart.resize());
+        });
+
+        let visibleCount = 8;
+        const step = 4;
+
+        document.getElementById('show-more').addEventListener('click', () => {
+            const games = document.querySelectorAll('.game-card');
+            let shownCount = 0;
+
+            for (let i = 0; i < games.length; i++) {
+                if (i >= visibleCount && shownCount < step) {
+                    games[i].style.display = ''; // Show the game
+                    shownCount++;
+                }
+            }
+
+            visibleCount += shownCount;
+
+            // Hide the button if all games are shown
+            if (visibleCount >= games.length) {
+                document.getElementById('show-more').style.display = 'none';
+            }
+
+            // Update the button text to show remaining count
+            const remaining = games.length - visibleCount;
+            if (remaining > 0) {
+                document.getElementById('show-more').innerHTML = `
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Show More (${remaining} remaining)
+                `;
+            }
         });
     </script>
 </body>
