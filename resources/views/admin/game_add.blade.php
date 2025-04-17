@@ -18,43 +18,6 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen font-sans">
-    <!-- Top Navigation -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png"
-                            alt="GameHaven">
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="#"
-                            class="border-indigo-600 text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Games
-                        </a>
-                        <a href="#"
-                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Users
-                        </a>
-                        <a href="#"
-                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Analytics
-                        </a>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <button type="button" class="p-1 rounded-full text-gray-400 hover:text-gray-500 mr-3">
-                        <span class="sr-only">View notifications</span>
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="relative">
-                        <img class="h-9 w-9 rounded-full ring-2 ring-white shadow"
-                            src="https://ui-avatars.com/api/?name=Admin&background=6C3BF7&color=fff" alt="Admin">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Page Header -->
@@ -138,22 +101,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- Import Status -->
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h2 class="text-lg font-semibold text-gray-900">Import Status</h2>
-                    </div>
-                    <div class="px-6 py-5">
-                        <div class="bg-gray-50 rounded-lg border border-gray-200 p-6 text-center">
-                            <div class="flex flex-col items-center justify-center py-4">
-                                <i class="fas fa-database text-gray-400 text-3xl mb-2"></i>
-                                <p class="text-sm text-gray-700">No game import initiated yet</p>
-                                <p class="text-xs mt-1 text-gray-500">Game data will appear here once imported</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Right Column - Preview -->
@@ -193,7 +140,6 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Genre Tags</label>
                                 <div id="genres" class="flex flex-wrap gap-2">
-                                    <!-- Genres will be added dynamically -->
                                 </div>
                             </div>
 
@@ -275,8 +221,6 @@
                 .then(response => {
                     const game = response.data.results[0];
                     if (game) {
-                        console.log(game);
-
                         title.value = game.name;
                         back.value = game.background_image
                         preview.src = back.value;
@@ -322,6 +266,9 @@
                             price: gameprice.value,
                             rating: previewRating.innerText,
                             cover: preview.src
+                        }).catch(error => {
+                            swal("ERROR!", error.response.data.message, "error");
+                            return;
                         })
                         swal("Success!", "The Game Has Been Successfully Published!", "success")
                             .then(() => {

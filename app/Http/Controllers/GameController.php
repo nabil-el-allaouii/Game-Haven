@@ -10,10 +10,10 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', 'unique:games,gameTitle'],
             'releaseDate' => ['required', 'date'],
-            'price' => ['required'],
-            'rating' => ['required'],
+            'price' => ['required','numeric'],
+            'rating' => ['required','numeric'],
             'screenshots' => ['required', 'array'],
             'genres' => ['required', 'array']
         ]);
