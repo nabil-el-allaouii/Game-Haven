@@ -398,10 +398,14 @@
                                 </div>
                                 <div class="border-t border-gray-200 px-4 py-3 bg-gray-50">
                                     <div class="flex items-center">
-                                        <button class="text-custom hover:text-custom-600 mr-3 cursor-pointer"
-                                            title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                        <form action="{{ Route('edit-game', $game->id) }}" method="post">
+                                            @csrf
+                                            @method('GET')
+                                            <button class="text-blue-600 hover:text-yellow-900 mr-3 cursor-pointer"
+                                                title="edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </form>
                                         <button class="text-yellow-600 hover:text-yellow-900 mr-3 cursor-pointer"
                                             title="Promote">
                                             <i class="fas fa-award"></i>

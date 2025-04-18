@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ScreenshotController;
 
 Route::get('/', function () {
     return view('index');
@@ -35,3 +36,6 @@ Route::get('/add-game' , function(){
 });
 Route::post('/add-game',[GameController::class,'store'])->name('add-game');
 Route::delete('/admin/{id}',[GameController::class,'destroy'])->name('admin.games.destroy');
+Route::get('/edit-game/{id}',[GameController::class , 'editGame'])->name('edit-game');
+Route::delete('/edit-game/screenshot/{id}',[ScreenshotController::class,'destroy'])->name('Screenshot.destroy');
+Route::put('/edit-game/{id}',[GameController::class,'update'])->name('Game.update');
