@@ -50,7 +50,6 @@
         </aside>
 
         <main class="flex-1 overflow-y-auto">
-            <!-- Dashboard Section -->
             <div id="dashboard-section" class="section-content">
                 <header class="bg-white shadow">
                     <div class="px-6 py-4 flex items-center justify-between">
@@ -164,21 +163,15 @@
                 </div>
             </div>
 
-            <!-- Users Section -->
+
             <div id="users-section" class="section-content hidden">
                 <header class="bg-white shadow">
                     <div class="px-6 py-4 flex items-center justify-between">
                         <h1 class="text-2xl font-semibold text-gray-900">User Management</h1>
-                        <div class="flex items-center space-x-4">
-                            <button class="!rounded-button bg-custom text-white px-4 py-2">
-                                <i class="fas fa-plus mr-2"></i>Add New User
-                            </button>
-                        </div>
                     </div>
                 </header>
 
                 <div class="p-6">
-                    <!-- Search and Filter Section -->
                     <div class="bg-white rounded-lg shadow mb-6">
                         <div class="p-4 flex flex-wrap gap-4 items-center justify-between">
                             <div class="flex-1 min-w-[200px]">
@@ -208,7 +201,6 @@
                         </div>
                     </div>
 
-                    <!-- Users Table -->
                     <div class="bg-white rounded-lg shadow overflow-hidden">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -235,84 +227,66 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <!-- Sample User Row -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <img class="h-10 w-10 rounded-full"
-                                                src="https://ui-avatars.com/api/?name=John+Doe" alt="">
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                                <div class="text-sm text-gray-500">john@example.com</div>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <img class="h-10 w-10 rounded-full"
+                                                    src="https://ui-avatars.com/api/?name=John+Doe" alt="">
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">{{ $user->name }}
+                                                    </div>
+                                                    <div class="text-sm text-gray-500">{{ $user->email }}</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Admin</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 minutes ago</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-custom hover:text-custom-600 mr-3" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="text-yellow-600 hover:text-yellow-900 mr-3" title="Ban">
-                                            <i class="fas fa-ban"></i>
-                                        </button>
-                                        <button class="text-red-600 hover:text-red-900" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <!-- Add more user rows as needed -->
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">{{ $user->role }}</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-80 {{ $user->status === 'active' ? 'bg-green-600' : 'bg-red-600 text-white' }}">{{ $user->status }}</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 minutes ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <div class="flex items-center">
+                                                @if ($user->status === 'banned')
+                                                    <form action="{{ Route('user.unban', $user->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button
+                                                            class="cursor-pointer text-gray-600 hover:text-red-900 mr-3">
+                                                            <i class="fa fa-undo"></i>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form action="{{ Route('user.ban', $user->id) }}" method="POST"
+                                                        class="mr-3">
+                                                        @csrf
+                                                        <button
+                                                            class="text-yellow-600 hover:text-yellow-900 cursor-pointer"
+                                                            title="Ban">
+                                                            <i class="fas fa-ban"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                                <form action="{{route('user.delete' , $user->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="cursor-pointer text-red-600 hover:text-red-900"
+                                                        title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-
-                        <!-- Pagination -->
-                        <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                            <div class="flex items-center justify-between">
-                                <div class="flex-1 flex justify-between sm:hidden">
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Previous</a>
-                                    <a href="#"
-                                        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Next</a>
-                                </div>
-                                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                                    <div>
-                                        <p class="text-sm text-gray-700">
-                                            Showing <span class="font-medium">1</span> to <span
-                                                class="font-medium">10</span> of <span class="font-medium">97</span>
-                                            results
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-                                            aria-label="Pagination">
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                                <span class="sr-only">Previous</span>
-                                                <i class="fas fa-chevron-left"></i>
-                                            </a>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</a>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
-                                            <a href="#"
-                                                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                                <span class="sr-only">Next</span>
-                                                <i class="fas fa-chevron-right"></i>
-                                            </a>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

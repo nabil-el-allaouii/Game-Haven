@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ScreenshotController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\userManagementController;
 
 Route::get('/', function () {
     return view('index');
@@ -29,7 +32,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin',function(){
     return view('admin.dashboard');
 });
-Route::get('/admin',[GameController::class,'showGames'])->name('admin.games');
+Route::get('/admin',[DashboardController::class , 'Dashboard'])->name('dashboard.content');
 
 Route::get('/add-game' , function(){
     return view('admin.game_add');
@@ -39,3 +42,6 @@ Route::delete('/admin/{id}',[GameController::class,'destroy'])->name('admin.game
 Route::get('/edit-game/{id}',[GameController::class , 'editGame'])->name('edit-game');
 Route::delete('/edit-game/screenshot/{id}',[ScreenshotController::class,'destroy'])->name('Screenshot.destroy');
 Route::put('/edit-game/{id}',[GameController::class,'update'])->name('Game.update');
+Route::post('/admin/ban/{id}' , [UserController::class , 'banUser'])->name('user.ban');
+Route::post('/admin/unban/{id}' , [UserController::class , 'unbanUser'])->name('user.unban');
+Route::delete('/admin/delete/{id}' ,[UserController::class , 'deleteUser'])->name('user.delete');

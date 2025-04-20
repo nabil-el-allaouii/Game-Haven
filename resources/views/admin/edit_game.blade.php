@@ -17,42 +17,6 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen font-sans">
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png"
-                            alt="GameHaven">
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="/admin/dashboard"
-                            class="border-indigo-600 text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Games
-                        </a>
-                        <a href="#"
-                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Users
-                        </a>
-                        <a href="#"
-                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Analytics
-                        </a>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <button type="button" class="p-1 rounded-full text-gray-400 hover:text-gray-500 mr-3">
-                        <span class="sr-only">View notifications</span>
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <div class="relative">
-                        <img class="h-9 w-9 rounded-full ring-2 ring-white shadow"
-                            src="https://ui-avatars.com/api/?name=Admin&background=6366F1&color=fff" alt="Admin">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
