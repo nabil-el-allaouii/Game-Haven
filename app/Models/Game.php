@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Platforms;
 use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
@@ -13,5 +14,8 @@ class Game extends Model
     }
     public function genres(){
         return $this->hasMany(gameGenre::class);
+    }
+    public function platforms(){
+        return $this->hasMany(Platforms::class);
     }
 }

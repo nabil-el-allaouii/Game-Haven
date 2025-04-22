@@ -265,7 +265,8 @@
                             screenshots: game.short_screenshots.map(s => s.image),
                             price: gameprice.value,
                             rating: previewRating.innerText,
-                            cover: preview.src
+                            cover: preview.src,
+                            platforms : game.platforms.map(p=> p.platform.name)
                         }).catch(error => {
                             swal("ERROR!", error.response.data.message, "error");
                             return;

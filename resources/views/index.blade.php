@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <a href=""><button
+                <a href="/login"><button
                         class="!rounded-button bg-custom hover:bg-custom/90 px-4 py-2 text-sm font-medium text-white">Sign
                         In</button></a>
             </div>
@@ -102,42 +102,25 @@
                 <div class="glide">
                     <div class="glide__track" data-glide-el="track">
                         <ul class="glide__slides">
-                            <li class="glide__slide">
-                                <div class="relative rounded-lg overflow-hidden">
-                                    <img src="https://creatie.ai/ai/api/search-image?query=A stunning 4K screenshot from a next-gen action RPG game featuring an epic battle scene with dramatic lighting, particle effects, and detailed environment. The scene shows a warrior facing a mythical creature in a fantasy setting with a dark atmospheric background&width=400&height=225&orientation=landscape&flag=255f5f82-4d08-49e5-b396-66dbe3246360"
-                                        alt="Game 1" class="w-full h-64 object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black">
-                                        <h3 class="text-lg font-bold">Eternal Legends</h3>
-                                        <p class="text-sm text-gray-300">Action RPG</p>
+                            @foreach ($games as $game)
+                                <li class="glide__slide">
+                                    <div class="relative rounded-lg overflow-hidden">
+                                        <img src="{{ $game->cover }}" alt="Game 1" class="w-full h-64 object-cover">
+                                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black">
+                                            <h3 class="text-lg font-bold">{{ $game->title }}</h3>
+                                            @foreach ($game->genres->take(1) as $genre)
+                                                <p class="text-sm text-gray-300">{{$genre->genre}}</p>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="glide__slide">
-                                <div class="relative rounded-lg overflow-hidden">
-                                    <img src="https://creatie.ai/ai/api/search-image?query=A breathtaking racing game screenshot showing a hypercar racing through a neon-lit futuristic city at night, with ray-traced reflections and dynamic weather effects. The scene captures the speed and intensity of high-stakes street racing&width=400&height=225&orientation=landscape&flag=8b349fd0-43bd-4327-ad4d-eab725f2a05d"
-                                        alt="Game 2" class="w-full h-64 object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black">
-                                        <h3 class="text-lg font-bold">Speed Masters</h3>
-                                        <p class="text-sm text-gray-300">Racing</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="glide__slide">
-                                <div class="relative rounded-lg overflow-hidden">
-                                    <img src="https://creatie.ai/ai/api/search-image?query=A strategic war game screenshot showing an expansive battlefield with armies clashing, detailed unit formations, and impressive special effects. The scene demonstrates advanced graphics with realistic terrain and atmospheric lighting&width=400&height=225&orientation=landscape&flag=1724610e-a8c2-489c-93bf-414c2b6921c4"
-                                        alt="Game 3" class="w-full h-64 object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black">
-                                        <h3 class="text-lg font-bold">Empire Wars</h3>
-                                        <p class="text-sm text-gray-300">Strategy</p>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="glide__bullets" data-glide-el="controls[nav]">
-                        <button class="glide__bullet" data-glide-dir="=0"></button>
-                        <button class="glide__bullet" data-glide-dir="=1"></button>
-                        <button class="glide__bullet" data-glide-dir="=2"></button>
+                        @foreach ($games as $game)
+                            <button class="glide__bullet" data-glide-dir="={{ $loop->index }}"></button>
+                        @endforeach
                     </div>
                 </div>
             </div>

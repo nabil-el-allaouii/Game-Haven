@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScreenshotController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\userManagementController;
 
-Route::get('/', function () {
-    return view('index');
-});
+
+Route::get('/', [HomeController::class , 'Games']);
+Route::get('/games',[HomeController::class , 'listing']);
 
 Route::middleware('AlreadyAuth')->group(function () {
     Route::get('/login', function () {
@@ -29,19 +29,18 @@ Route::middleware('auth')->group(function () {
     })->name('profile');
 });
 
-Route::get('/admin',function(){
-    return view('admin.dashboard');
-});
-Route::get('/admin',[DashboardController::class , 'Dashboard'])->name('dashboard.content');
+Route::middleware(['auth','admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'Dashboard'])->name('dashboard.content');
 
-Route::get('/add-game' , function(){
-    return view('admin.game_add');
+    Route::get('/add-game', function () {
+        return view('admin.game_add');
+    });
+    Route::post('/add-game', [GameController::class, 'store'])->name('add-game');
+    Route::delete('/admin/{id}', [GameController::class, 'destroy'])->name('admin.games.destroy');
+    Route::get('/edit-game/{id}', [GameController::class, 'editGame'])->name('edit-game');
+    Route::delete('/edit-game/screenshot/{id}', [ScreenshotController::class, 'destroy'])->name('Screenshot.destroy');
+    Route::put('/edit-game/{id}', [GameController::class, 'update'])->name('Game.update');
+    Route::post('/admin/ban/{id}', [UserController::class, 'banUser'])->name('user.ban');
+    Route::post('/admin/unban/{id}', [UserController::class, 'unbanUser'])->name('user.unban');
+    Route::delete('/admin/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
 });
-Route::post('/add-game',[GameController::class,'store'])->name('add-game');
-Route::delete('/admin/{id}',[GameController::class,'destroy'])->name('admin.games.destroy');
-Route::get('/edit-game/{id}',[GameController::class , 'editGame'])->name('edit-game');
-Route::delete('/edit-game/screenshot/{id}',[ScreenshotController::class,'destroy'])->name('Screenshot.destroy');
-Route::put('/edit-game/{id}',[GameController::class,'update'])->name('Game.update');
-Route::post('/admin/ban/{id}' , [UserController::class , 'banUser'])->name('user.ban');
-Route::post('/admin/unban/{id}' , [UserController::class , 'unbanUser'])->name('user.unban');
-Route::delete('/admin/delete/{id}' ,[UserController::class , 'deleteUser'])->name('user.delete');

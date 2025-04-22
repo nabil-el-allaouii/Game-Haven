@@ -17,7 +17,8 @@ class GameController extends Controller
             'price' => ['required', 'numeric'],
             'rating' => ['required', 'numeric'],
             'screenshots' => ['required', 'array'],
-            'genres' => ['required', 'array']
+            'genres' => ['required', 'array'],
+            'platforms' => ['required', 'array']
         ]);
         $game = Game::create([
             'gameTitle' => $request->name,
@@ -34,6 +35,12 @@ class GameController extends Controller
         foreach ($validated['genres'] as $genre) {
             $game->genres()->create([
                 'genre' => $genre
+            ]);
+        }
+        foreach($validated['platforms'] as $platform){
+            $game->platforms()->create([
+                'name' => $platform,
+                'game_id'=>$game->id
             ]);
         }
         return redirect('/add-game');
@@ -63,10 +70,10 @@ class GameController extends Controller
         $screenshotUrls = [];
         if ($request->hasFile('screenshots')) {
             foreach ($request->file('screenshots') as $screenshot) {
-                $imageName = Str::uuid().'.'.$screenshot->getClientOriginalExtension();
-                $screenshot->storeAs('screenshots',$imageName,'public');
-                $path = '/screenshots/'.$imageName;
-                $screenshotUrls[]= $path;
+                $imageName = Str::uuid() . '.' . $screenshot->getClientOriginalExtension();
+                $screenshot->storeAs('screenshots', $imageName, 'public');
+                $path = '/screenshots/' . $imageName;
+                $screenshotUrls[] = $path;
             }
         }
         $game->update([
