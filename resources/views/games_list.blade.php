@@ -218,7 +218,6 @@
                                 <h3 class="font-medium text-gray-100 truncate w-3/4">{{ $game->gameTitle }}</h3>
                             </div>
 
-                            <!-- Platform icons moved below the title -->
                             <div class="flex flex-wrap items-center mb-2">
                                 @php
                                     $platformCount = count($game->platforms);
@@ -304,7 +303,7 @@
                                         {{ \Carbon\Carbon::parse($game->release)->format('Y') }}
                                     @endif
                                 </div>
-                                <a href="/games/{{ $game->id }}"
+                                <a href="/game/{{ $game->id }}"
                                     class="text-purple-400 hover:text-purple-300 text-sm font-medium">View Details</a>
                             </div>
                         </div>

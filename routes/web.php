@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class , 'Games']);
 Route::get('/games',[HomeController::class , 'listing']);
+Route::get('/game/{id}' , [HomeController::class , 'details']);
 
 Route::middleware('AlreadyAuth')->group(function () {
     Route::get('/login', function () {
