@@ -7,7 +7,8 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScreenshotController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\UserInteractionsController;
+use League\Uri\Contracts\UserInfoInterface;
 
 Route::get('/', [HomeController::class , 'Games']);
 Route::get('/games',[HomeController::class , 'listing']);
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('profile.profile');
     })->name('profile');
+    Route::post('/game/{id}' , [UserInteractionsController::class , 'review'])->name('game.review');
+    Route::delete('/review/{id}' , [UserInteractionsController::class , 'deleteReview'])->name('review.destroy');
 });
 
 Route::middleware(['auth','admin'])->group(function () {

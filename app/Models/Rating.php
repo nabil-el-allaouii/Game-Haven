@@ -10,4 +10,7 @@ class Rating extends Model
     public function gameReviews(){
         return $this->belongsTo(Game::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

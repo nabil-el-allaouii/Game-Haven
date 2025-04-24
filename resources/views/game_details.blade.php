@@ -159,80 +159,106 @@
                         <h2 class="text-xl font-bold mb-4">Reviews</h2>
 
                         <div class="mb-6 p-4 bg-[#151b29] rounded-lg">
-                            <h3 class="text-lg font-semibold mb-3">Write a Review</h3>
-                            <form id="reviewForm" method="POST" action="#">
-                                @csrf
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-300 mb-2">Rating</label>
-                                    <div class="flex space-x-1">
-                                        <button type="button" class="star-rating" data-rating="1">
-                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
-                                        </button>
-                                        <button type="button" class="star-rating" data-rating="2">
-                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
-                                        </button>
-                                        <button type="button" class="star-rating" data-rating="3">
-                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
-                                        </button>
-                                        <button type="button" class="star-rating" data-rating="4">
-                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
-                                        </button>
-                                        <button type="button" class="star-rating" data-rating="5">
-                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
-                                        </button>
+                            @error('alr')
+                                <div class="text-danger text-red-500 text-m">{{ $message }}</div>
+                            @enderror
+                            @if (auth()->check() && auth()->user()->role !== 'admin')
+                                <h3 class="text-lg font-semibold mb-3">Write a Review</h3>
+                                <form id="reviewForm" method="POST" action="{{ Route('game.review', $game->id) }}">
+                                    @csrf
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Rating</label>
+                                        <div class="flex space-x-1">
+                                            <button type="button" class="star-rating" data-rating="1">
+                                                <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                            </button>
+                                            <button type="button" class="star-rating" data-rating="2">
+                                                <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                            </button>
+                                            <button type="button" class="star-rating" data-rating="3">
+                                                <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                            </button>
+                                            <button type="button" class="star-rating" data-rating="4">
+                                                <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                            </button>
+                                            <button type="button" class="star-rating" data-rating="5">
+                                                <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                            </button>
+                                        </div>
+                                        @error('rating')
+                                            <div class="text-danger text-red-500">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-300 mb-2">Your Review</label>
-                                    <textarea
-                                        class="w-full bg-[#1a202c] border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:border-indigo-500"
-                                        rows="4" name="review" placeholder="Share your thoughts about this game..."></textarea>
-                                </div>
-                                <input type="hidden" name="rating" id="rating" placeholder="rating here">
-                                <button type="submit"
-                                    class="cursor-pointer bg-primary hover:bg-purple-700 text-white px-4 py-2 rounded-button">
-                                    Submit Review
-                                </button>
-                            </form>
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-300 mb-2">Your Review</label>
+                                        <textarea
+                                            class="w-full bg-[#1a202c] border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:border-indigo-500"
+                                            rows="4" name="review" placeholder="Share your thoughts about this game..."></textarea>
+                                        @error('review')
+                                            <div class="text-danger text-red-500">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <input type="hidden" name="rating" id="rating" placeholder="rating here">
+                                    <button type="submit"
+                                        class="cursor-pointer bg-primary hover:bg-purple-700 text-white px-4 py-2 rounded-button">
+                                        Submit Review
+                                    </button>
+                                </form>
+                            @endif
                         </div>
 
-                        <div class="space-y-6">
-                            <!-- Review 1 -->
-                            <div class="border-b border-gray-700 pb-6">
-                                <div class="flex justify-between mb-2">
-                                    <div class="font-medium">John Doe</div>
-                                    <div class="flex">
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-half-fill text-yellow-400"></i>
+                        <div class="space-y-4">
+                            @foreach ($game->reviews as $review)
+                                <div
+                                    class="bg-gradient-to-br from-[#1a202c] to-[#161e2b] rounded-lg shadow-lg p-4 border border-gray-800 hover:border-gray-700 transition-all">
+                                    <!-- Review header -->
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-1 h-5 bg-primary rounded-full"></div>
+                                            <span
+                                                class="font-semibold text-white">{{ $review->user->name ?? 'Anonymous User' }}</span>
+                                            <span
+                                                class="text-xs text-gray-500">{{ $review->created_at ? $review->created_at->diffForHumans() : 'Recently' }}</span>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="ri-star-fill text-yellow-400"></i>
+                                            <span class="ml-1">{{ $review->rating }}/5</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <p class="text-gray-300 mb-3">
-                                    An incredible gaming experience that pushes the boundaries
-                                    of what's possible in open-world RPGs. The attention to
-                                    detail in Night City is breathtaking.
-                                </p>
-                            </div>
 
-                            <!-- Review 2 -->
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <div class="font-medium">Sarah Smith</div>
-                                    <div class="flex">
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-fill text-yellow-400"></i>
-                                        <i class="ri-star-line text-yellow-400"></i>
+                                    <div class="mb-4">
+                                        <p class="text-gray-300 leading-relaxed pl-3 border-l border-gray-700">
+                                            {{ $review->review }}
+                                        </p>
+                                    </div>
+
+                                    <div class="flex justify-between items-center border-t border-gray-800 pt-3 mt-3">
+                                        <div class="text-xs text-gray-500 flex items-center gap-2">
+                                            <i class="ri-time-line"></i>
+                                            <span>{{ $review->created_at ? $review->created_at->format('M d, Y') : 'Recent review' }}</span>
+                                        </div>
+
+                                        @if (auth()->check() && auth()->user()->id == $review->user_id || auth()->user->role = 'admin')
+                                            <form method="POST" action="{{ route('review.destroy', $review->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="text-gray-400 hover:text-red-400 transition-colors text-sm flex items-center bg-[#151b29] px-3 py-1 rounded-full">
+                                                    <i class="ri-delete-bin-line mr-1"></i> Delete
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
-                                <p class="text-gray-300 mb-3">
-                                    The character customization and story choices are amazing.
-                                    Each playthrough feels unique and meaningful.
-                                </p>
-                            </div>
+                            @endforeach
+
+                            @if (count($game->reviews) == 0)
+                                <div
+                                    class="text-center py-8 bg-gradient-to-b from-[#1a202c] to-[#161e2b] rounded-lg border border-gray-800">
+                                    <p class="text-gray-400 mb-1">No reviews yet</p>
+                                    <p class="text-xs text-gray-500">Share your experience with this game!</p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
