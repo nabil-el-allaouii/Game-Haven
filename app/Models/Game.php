@@ -18,4 +18,7 @@ class Game extends Model
     public function platforms(){
         return $this->hasMany(Platforms::class);
     }
+    public function reviews(){
+        return $this->hasMany(Rating::class);
+    }
 }

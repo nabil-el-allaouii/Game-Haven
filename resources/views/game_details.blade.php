@@ -158,6 +158,44 @@
                     <div class="bg-[#1a202c] rounded-lg p-6 shadow-lg">
                         <h2 class="text-xl font-bold mb-4">Reviews</h2>
 
+                        <div class="mb-6 p-4 bg-[#151b29] rounded-lg">
+                            <h3 class="text-lg font-semibold mb-3">Write a Review</h3>
+                            <form id="reviewForm" method="POST" action="#">
+                                @csrf
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Rating</label>
+                                    <div class="flex space-x-1">
+                                        <button type="button" class="star-rating" data-rating="1">
+                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                        </button>
+                                        <button type="button" class="star-rating" data-rating="2">
+                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                        </button>
+                                        <button type="button" class="star-rating" data-rating="3">
+                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                        </button>
+                                        <button type="button" class="star-rating" data-rating="4">
+                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                        </button>
+                                        <button type="button" class="star-rating" data-rating="5">
+                                            <i class="ri-star-line text-2xl text-yellow-400"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-300 mb-2">Your Review</label>
+                                    <textarea
+                                        class="w-full bg-[#1a202c] border border-gray-700 rounded-lg p-3 text-gray-300 focus:outline-none focus:border-indigo-500"
+                                        rows="4" name="review" placeholder="Share your thoughts about this game..."></textarea>
+                                </div>
+                                <input type="hidden" name="rating" id="rating" placeholder="rating here">
+                                <button type="submit"
+                                    class="cursor-pointer bg-primary hover:bg-purple-700 text-white px-4 py-2 rounded-button">
+                                    Submit Review
+                                </button>
+                            </form>
+                        </div>
+
                         <div class="space-y-6">
                             <!-- Review 1 -->
                             <div class="border-b border-gray-700 pb-6">
@@ -176,14 +214,6 @@
                                     of what's possible in open-world RPGs. The attention to
                                     detail in Night City is breathtaking.
                                 </p>
-                                <div class="flex items-center space-x-4 text-sm text-gray-400">
-                                    <button class="flex items-center hover:text-white">
-                                        <i class="ri-thumb-up-line mr-1"></i> 24
-                                    </button>
-                                    <button class="flex items-center hover:text-white">
-                                        <i class="ri-reply-line mr-1"></i> Reply
-                                    </button>
-                                </div>
                             </div>
 
                             <!-- Review 2 -->
@@ -202,22 +232,12 @@
                                     The character customization and story choices are amazing.
                                     Each playthrough feels unique and meaningful.
                                 </p>
-                                <div class="flex items-center space-x-4 text-sm text-gray-400">
-                                    <button class="flex items-center hover:text-white">
-                                        <i class="ri-thumb-up-line mr-1"></i> 16
-                                    </button>
-                                    <button class="flex items-center hover:text-white">
-                                        <i class="ri-reply-line mr-1"></i> Reply
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Sidebar (Right) -->
                 <div class="space-y-6">
-                    <!-- System Requirements -->
                     <div class="bg-[#1a202c] rounded-lg p-6 shadow-lg">
                         <h2 class="text-xl font-bold mb-4">System Requirements</h2>
 
@@ -234,7 +254,6 @@
                         </div>
                     </div>
 
-                    <!-- Similar Games -->
                     <div class="bg-[#1a202c] rounded-lg p-6 shadow-lg">
                         <h2 class="text-xl font-bold mb-4">Similar Games</h2>
 
@@ -261,11 +280,11 @@
         </div>
     </main>
 
-    <!-- Footer -->
+
     <footer class="bg-[#0f1623] py-12 border-t border-gray-800">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Company Info -->
+
                 <div>
                     <a href="/"
                         class="flex items-center font-['Pacifico'] text-primary text-2xl mb-4">GameHaven</a>
@@ -275,7 +294,6 @@
                     </p>
                 </div>
 
-                <!-- Support Links -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">SUPPORT</h3>
                     <ul class="space-y-2">
@@ -291,7 +309,6 @@
                     </ul>
                 </div>
 
-                <!-- Legal Links -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">LEGAL</h3>
                     <ul class="space-y-2">
@@ -337,12 +354,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Show content and hide loading indicator after 1 second
+
             setTimeout(function() {
                 document.getElementById("loading-indicator").style.display = "none";
                 document.getElementById("game-content").style.display = "block";
 
-                // Initialize Glide.js slider
                 new Glide('.glide', {
                     type: 'carousel',
                     perView: 1,
@@ -350,7 +366,6 @@
                 }).mount();
             }, 1000);
 
-            // Handle heart button toggle
             const heartButton = document.querySelector(".ri-heart-line").parentElement;
             heartButton.addEventListener("click", function() {
                 const icon = this.querySelector("i");
@@ -364,6 +379,25 @@
                     icon.classList.add("ri-heart-line");
                 }
             });
+
+            const starButtons = document.querySelectorAll('.star-rating');
+            let ratevalue = document.getElementById('rating');
+            starButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    starButtons.forEach((star, index) => {
+                        if (index < rating) {
+                            star.querySelector('i').classList.remove('ri-star-line');
+                            star.querySelector('i').classList.add('ri-star-fill');
+                        } else {
+                            star.querySelector('i').classList.remove('ri-star-fill');
+                            star.querySelector('i').classList.add('ri-star-line');
+                        }
+                        ratevalue.value = rating;
+                    });
+                });
+            });
+
         });
         // let gameTitle = document.getElementById('GameTitle');
         // axios.get('/applist.json')
