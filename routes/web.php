@@ -13,6 +13,10 @@ use League\Uri\Contracts\UserInfoInterface;
 Route::get('/', [HomeController::class , 'Games']);
 Route::get('/games',[HomeController::class , 'listing']);
 Route::get('/game/{id}' , [HomeController::class , 'details']);
+Route::get('/search' , [HomeController::class , 'search'])->name('game.search');
+Route::get('/filter', [HomeController::class, 'ratingFilter'])->name('rate.filter');
+Route::get('/platform' , [HomeController::class , 'platformFilter'])->name('platform.filter');
+Route::get('/price' , [HomeController::class , 'priceFilter'])->name('price.filter');
 
 Route::middleware('AlreadyAuth')->group(function () {
     Route::get('/login', function () {
@@ -31,6 +35,12 @@ Route::middleware('auth')->group(function () {
     })->name('profile');
     Route::post('/game/{id}' , [UserInteractionsController::class , 'review'])->name('game.review');
     Route::delete('/review/{id}' , [UserInteractionsController::class , 'deleteReview'])->name('review.destroy');
+    Route::get('/forum' , function(){
+        return view('forum.forum');
+    });
+    Route::get('/thread', function(){
+        return view('forum.add_thread');
+    });
 });
 
 Route::middleware(['auth','admin'])->group(function () {

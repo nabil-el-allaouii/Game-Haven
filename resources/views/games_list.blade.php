@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
@@ -76,6 +77,16 @@
         .custom-rounded {
             border-radius: 8px;
         }
+
+        .star-rating:hover label {
+            color: #a0aec0;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover~label,
+        .star-rating input:checked~label {
+            color: #ecc94b !important;
+        }
     </style>
 </head>
 
@@ -91,13 +102,16 @@
             </nav>
         </div>
         <div class="flex items-center space-x-4">
-            <div class="relative">
-                <input type="text" placeholder="Search games..."
-                    class="search-input py-2 pl-10 pr-4 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-purple-600" />
-                <div class="absolute left-3 top-2.5 w-5 h-5 flex items-center justify-center text-gray-400">
-                    <i class="fas fa-search"></i>
+            <form action="{{ route('game.search') }}" method="GET">
+                @csrf
+                <div class="relative">
+                    <input name="keyword" type="text" placeholder="Search games..."
+                        class="search-input py-2 pl-10 pr-4 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-purple-600" />
+                    <div class="absolute left-3 top-2.5 w-5 h-5 flex items-center justify-center text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </div>
                 </div>
-            </div>
+            </form>
             <button class="bg-gray-900 text-white px-4 py-2 rounded-md hover:bg-gray-700 whitespace-nowrap">
                 <div class="flex items-center">
                     <i class="fas fa-user mr-2"></i>
@@ -112,80 +126,85 @@
         <div class="w-64 mr-8">
             <div class="filter-section p-5 rounded mb-6 shadow-lg">
                 <h3 class="text-lg font-medium mb-4 text-purple-400">Platforms</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="playstation" class="checkbox-custom mr-3" />
-                        <label for="playstation" class="flex items-center cursor-pointer hover:text-purple-300">
-                            <div class="w-5 h-5 flex items-center justify-center text-blue-400 mr-2">
-                                <i class="fab fa-playstation"></i>
-                            </div>
-                            PlayStation
-                        </label>
+                <form action="{{ route('platform.filter') }}" method="GET">
+                    @csrf
+                    <div class="space-y-3">
+                        <select name="platform" id="platform-select"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-600">
+                            <option value="">All Platforms</option>
+                            <option value="playstation">PlayStation</option>
+                            <option value="xbox">Xbox</option>
+                            <option value="pc">PC</option>
+                            <option value="nintendo">Nintendo</option>
+                            <option value="Android">Android</option>
+                            <option value="IOS">IOS</option>
+                        </select>
+                        <div class="text-xs text-gray-400 mt-2">
+                            Select a platform to filter games
+                        </div>
                     </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="xbox" class="checkbox-custom mr-3" />
-                        <label for="xbox" class="flex items-center cursor-pointer hover:text-purple-300">
-                            <div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
-                                <i class="fab fa-xbox"></i>
-                            </div>
-                            Xbox
-                        </label>
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="bg-purple-400 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-purple-500 mt-4">Filter</button>
                     </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="pc" class="checkbox-custom mr-3" />
-                        <label for="pc" class="flex items-center cursor-pointer hover:text-purple-300">
-                            <div class="w-5 h-5 flex items-center justify-center text-gray-300 mr-2">
-                                <i class="fas fa-desktop"></i>
-                            </div>
-                            PC
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="filter-section p-5 rounded mb-6 shadow-lg">
-                <h3 class="text-lg font-medium mb-4 text-purple-400">Genres</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="action" class="checkbox-custom mr-3" />
-                        <label for="action" class="cursor-pointer hover:text-purple-300">Action</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="adventure" class="checkbox-custom mr-3" />
-                        <label for="adventure" class="cursor-pointer hover:text-purple-300">Adventure</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="rpg" class="checkbox-custom mr-3" />
-                        <label for="rpg" class="cursor-pointer hover:text-purple-300">RPG</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="strategy" class="checkbox-custom mr-3" />
-                        <label for="strategy" class="cursor-pointer hover:text-purple-300">Strategy</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="sports" class="checkbox-custom mr-3" />
-                        <label for="sports" class="cursor-pointer hover:text-purple-300">Sports</label>
-                    </div>
-                </div>
+                </form>
             </div>
 
 
             <div class="filter-section p-5 rounded shadow-lg">
-                <h3 class="text-lg font-medium mb-4 text-purple-400">Features</h3>
+                <h3 class="text-lg font-medium mb-4 text-purple-400">Rating</h3>
                 <div class="space-y-3">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="multiplayer" class="checkbox-custom mr-3" />
-                        <label for="multiplayer" class="cursor-pointer hover:text-purple-300">Multiplayer</label>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Min Rating: </span>
+                        <span id="rating-value" class="text-purple-300 font-medium">0</span>
                     </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="singleplayer" class="checkbox-custom mr-3" />
-                        <label for="singleplayer" class="cursor-pointer hover:text-purple-300">Single Player</label>
+                    <input type="range" id="rating-slider" min="0" max="5" step="1" value="0"
+                        class="w-full accent-purple-500 bg-gray-700 h-2 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>0</span>
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
                     </div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="controller" class="checkbox-custom mr-3" />
-                        <label for="controller" class="cursor-pointer hover:text-purple-300">Controller
-                            Support</label>
+                    <form action="{{ Route('rate.filter') }}" method="GET">
+                        @csrf
+                        <input type="hidden" name="rating" id="filterRating" value="0">
+                        <div class="flex justify-end">
+                            <button
+                                class="bg-purple-400 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-purple-500"
+                                type="submit">Filter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="filter-section p-5 rounded shadow-lg mt-6">
+                <h3 class="text-lg font-medium mb-4 text-purple-400">Price</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-400">Min Price: </span>
+                        <span id="price-value" class="text-purple-300 font-medium">$0</span>
                     </div>
+                    <input type="range" id="price-slider" min="0" max="100" step="5" value="0"
+                        class="w-full accent-purple-500 bg-gray-700 h-2 rounded-lg appearance-none cursor-pointer">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>$0</span>
+                        <span>$25</span>
+                        <span>$50</span>
+                        <span>$75</span>
+                        <span>$100+</span>
+                    </div>
+                    <form action="{{route('price.filter')}}" method="GET">
+                        @csrf
+                        <input type="hidden" name="price" id="filterPrice" value="0">
+                        <div class="flex justify-end">
+                            <button
+                                class="bg-purple-400 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-purple-500"
+                                type="submit">Filter</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -313,46 +332,13 @@
 
             @if ($games->hasPages())
                 <div class="mt-10 px-4 py-4 bg-gray-800 rounded-lg shadow-md">
-                    <div class="flex flex-col sm:flex-row justify-between items-center">
-                        <div class="text-sm text-gray-400 mb-4 sm:mb-0">
+                    <div class="flex justify-between items-center">
+                        <div class="text-sm text-gray-500">
                             Showing {{ $games->firstItem() }} - {{ $games->lastItem() }} of {{ $games->total() }}
                             games
                         </div>
-                        <div class="flex">
-                            @if ($games->onFirstPage())
-                                <span class="px-3 py-1 bg-gray-700 text-gray-500 rounded-l-md cursor-not-allowed">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span>
-                            @else
-                                <a href="{{ $games->previousPageUrl() }}"
-                                    class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded-l-md">
-                                    <i class="fas fa-chevron-left"></i>
-                                </a>
-                            @endif
-
-                            @foreach ($games->getUrlRange(max($games->currentPage() - 2, 1), min($games->currentPage() + 2, $games->lastPage())) as $page => $url)
-                                @if ($page == $games->currentPage())
-                                    <span class="px-3 py-1 bg-purple-600 text-white">
-                                        {{ $page }}
-                                    </span>
-                                @else
-                                    <a href="{{ $url }}"
-                                        class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white">
-                                        {{ $page }}
-                                    </a>
-                                @endif
-                            @endforeach
-
-                            @if ($games->hasMorePages())
-                                <a href="{{ $games->nextPageUrl() }}"
-                                    class="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded-r-md">
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
-                            @else
-                                <span class="px-3 py-1 bg-gray-700 text-gray-500 rounded-r-md cursor-not-allowed">
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                            @endif
+                        <div>
+                            {{ $games->appends(request()->query())->links() }}
                         </div>
                     </div>
                 </div>
@@ -441,12 +427,37 @@
     </footer>
 
     <script>
+        let rating = document.getElementById('filterRating');
         document.addEventListener("DOMContentLoaded", function() {
-            const checkboxes = document.querySelectorAll(".checkbox-custom");
-            checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener("change", function() {
-                    // Filter functionality would go here
-                });
+
+            const ratingSlider = document.getElementById('rating-slider');
+            const ratingValue = document.getElementById('rating-value');
+            const filterRating = document.getElementById('filterRating');
+
+            if (filterRating.value) {
+                ratingSlider.value = filterRating.value;
+                ratingValue.textContent = filterRating.value;
+            }
+
+            ratingSlider.addEventListener('input', function() {
+                const value = this.value;
+                ratingValue.textContent = value;
+                filterRating.value = value;
+            });
+
+            const priceSlider = document.getElementById('price-slider');
+            const priceValue = document.getElementById('price-value');
+            const filterPrice = document.getElementById('filterPrice');
+
+            if (filterPrice.value) {
+                priceSlider.value = filterPrice.value;
+                priceValue.textContent = '$' + filterPrice.value;
+            }
+
+            priceSlider.addEventListener('input', function() {
+                const value = this.value;
+                priceValue.textContent = '$' + value;
+                filterPrice.value = value;
             });
         });
     </script>

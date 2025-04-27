@@ -72,7 +72,7 @@
 
     <!-- Main Content -->
     <main class="pt-16 pb-12">
-        <!-- Loading Indicator -->
+        
         <div class="flex justify-center items-center h-96 mb-8" id="loading-indicator">
             <div class="flex space-x-2">
                 <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
@@ -81,7 +81,6 @@
             </div>
         </div>
 
-        <!-- Game Screenshots Slider -->
         <div class="container mx-auto px-4 mb-6 max-w-6xl" id="game-content" style="display: none;">
             <div class="glide mb-6">
                 <div class="glide__track" data-glide-el="track">
@@ -125,9 +124,6 @@
                         <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
                             <div>
                                 <h1 id="GameTitle" class="text-3xl font-bold mb-1">{{ $game->gameTitle }}</h1>
-                                <p class="text-gray-400 text-sm">
-                                    CD PROJEKT RED • Action RPG
-                                </p>
                             </div>
                             <div class="flex items-center space-x-3 mt-4 md:mt-0">
                                 <button
@@ -142,10 +138,7 @@
                         </div>
 
                         <div class="flex items-center space-x-6 mb-6">
-                            <div class="text-sm text-gray-400">Release: Dec 10, 2020</div>
-                            <div class="flex items-center text-sm text-gray-400">
-                                <i class="ri-user-line mr-1"></i> Single-player
-                            </div>
+                            <div class="text-sm text-gray-400">Release: {{$game->release}}</div>
                             <div class="flex items-center">
                                 <i class="ri-star-fill text-yellow-400"></i>
                                 <span class="ml-1">{{ $game->rating }}/5</span>
