@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $game->gameTitle }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('title', $game->gameTitle)
+
+@section('styles')
     <style>
-        :where([class^="ri-"])::before {
-            content: "\f3c2";
-        }
-
-        body {
-            background-color: #111827;
-            color: #f3f4f6;
-            font-family: 'Inter', sans-serif;
-        }
-
         .progress-bar {
             height: 8px;
             border-radius: 4px;
@@ -42,37 +21,10 @@
             margin: 0 auto;
         }
     </style>
-</head>
+@endsection
 
-<body>
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#111827] border-b border-gray-800">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <a href="/"
-                        class="flex items-center font-['Pacifico'] text-primary text-2xl mr-8">GameHaven</a>
-                    <nav class="hidden md:flex space-x-8">
-                        <a href="/" class="text-indigo-400 border-b-2 border-indigo-400 px-1 py-5">Store</a>
-                        <a href="#" class="text-gray-300 hover:text-white px-1 py-5">Library</a>
-                        <a href="#" class="text-gray-300 hover:text-white px-1 py-5">Community</a>
-                    </nav>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white">
-                        <i class="ri-search-line ri-lg"></i>
-                    </button>
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white">
-                        <i class="ri-shopping-cart-line ri-lg"></i>
-                    </button>
-                    <div class="w-8 h-8 bg-gray-700 rounded-full"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
+@section('content')
     <main class="pt-16 pb-12">
-        
         <div class="flex justify-center items-center h-96 mb-8" id="loading-indicator">
             <div class="flex space-x-2">
                 <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
@@ -115,11 +67,8 @@
                 </div>
             </div>
 
-            <!-- Game Details Section -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Game Info and Reviews (Left and Middle) -->
                 <div class="lg:col-span-2 space-y-6">
-                    <!-- Game Title and Purchase -->
                     <div class="bg-[#1a202c] rounded-lg p-6 shadow-lg">
                         <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
                             <div>
@@ -138,15 +87,13 @@
                         </div>
 
                         <div class="flex items-center space-x-6 mb-6">
-                            <div class="text-sm text-gray-400">Release: {{$game->release}}</div>
+                            <div class="text-sm text-gray-400">Release: {{ $game->release }}</div>
                             <div class="flex items-center">
                                 <i class="ri-star-fill text-yellow-400"></i>
                                 <span class="ml-1">{{ $game->rating }}/5</span>
                             </div>
                         </div>
-
                     </div>
-
 
                     <div class="bg-[#1a202c] rounded-lg p-6 shadow-lg">
                         <h2 class="text-xl font-bold mb-4">Reviews</h2>
@@ -204,7 +151,6 @@
                             @foreach ($game->reviews as $review)
                                 <div
                                     class="bg-gradient-to-br from-[#1a202c] to-[#161e2b] rounded-lg shadow-lg p-4 border border-gray-800 hover:border-gray-700 transition-all">
-                                    <!-- Review header -->
                                     <div class="flex items-center justify-between mb-3">
                                         <div class="flex items-center gap-2">
                                             <div class="w-1 h-5 bg-primary rounded-full"></div>
@@ -231,7 +177,7 @@
                                             <span>{{ $review->created_at ? $review->created_at->format('M d, Y') : 'Recent review' }}</span>
                                         </div>
 
-                                        @if (auth()->check() && auth()->user()->id == $review->user_id || auth()->user->role = 'admin')
+                                        @if ((auth()->check() && auth()->user()->id == $review->user_id) || (auth()->user->role = 'admin'))
                                             <form method="POST" action="{{ route('review.destroy', $review->id) }}">
                                                 @csrf
                                                 @method('DELETE')
@@ -298,82 +244,12 @@
             </div>
         </div>
     </main>
+@endsection
 
-
-    <footer class="bg-[#0f1623] py-12 border-t border-gray-800">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                <div>
-                    <a href="/"
-                        class="flex items-center font-['Pacifico'] text-primary text-2xl mb-4">GameHaven</a>
-                    <p class="text-gray-400 mb-4">
-                        Your ultimate destination for digital entertainment and gaming
-                        experiences.
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">SUPPORT</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Help Center</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Community</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">LEGAL</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="mt-12 pt-8 border-t border-gray-800">
-                <div class="flex flex-col md:flex-row md:justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <p class="text-gray-500">
-                            © 2024 GameHaven. All rights reserved.
-                        </p>
-                    </div>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="ri-twitter-fill ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="ri-facebook-fill ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="ri-instagram-fill ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <i class="ri-youtube-fill ri-lg"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+@section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
             setTimeout(function() {
                 document.getElementById("loading-indicator").style.display = "none";
                 document.getElementById("game-content").style.display = "block";
@@ -416,21 +292,6 @@
                     });
                 });
             });
-
         });
-        // let gameTitle = document.getElementById('GameTitle');
-        // axios.get('/applist.json')
-        //     .then(file => {
-        //         const data = file.data.applist.apps;
-        //         const match = Object.values(data).find(g => g.name.toLowerCase() === gameTitle.innerText.toLowerCase())
-        //         const appid = match.appid;  
-
-        //         axios.get('https://store.steampowered.com/api/appdetails?appids='+appid)
-        //             .then(response => {
-        //                 console.log(response);
-        //             })
-        //     })
     </script>
-</body>
-
-</html>
+@endsection

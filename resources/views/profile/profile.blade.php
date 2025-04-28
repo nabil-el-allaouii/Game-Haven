@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gamer Profile - GameHaven</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('title', 'Gamer Profile - GameHaven')
+
+@section('styles')
     <style>
-        /* Custom toggle switch styling */
         .toggle-circle {
             transition: transform 0.2s ease-in-out;
         }
@@ -29,51 +20,9 @@
             --custom-color: #6C3BF7;
         }
     </style>
-</head>
+@endsection
 
-<body class="bg-gray-900 text-white min-h-screen profile-page">
-    <!-- Header Navigation -->
-    <header class="bg-gray-800/95 backdrop-blur-sm border-b border-gray-700">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <a href="/" class="flex-shrink-0 flex items-center">
-                        <img class="h-8 w-auto mr-2" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png"
-                            alt="GameHaven">
-                    </a>
-                    <div class="hidden md:block ml-10">
-                        <div class="flex items-center space-x-4">
-                            <a href="/"
-                                class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Home</a>
-                            <a href="#"
-                                class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Games</a>
-                            <a href="#"
-                                class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Community</a>
-                            <a href="#" class="text-custom hover:text-custom/80 px-3 py-2 text-sm font-medium">My
-                                Profile</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <button class="text-gray-300 hover:text-white">
-                            <i class="fas fa-bell text-xl"></i>
-                            <span
-                                class="absolute -top-1 -right-1 bg-custom text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                        </button>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="h-8 w-8 rounded-full overflow-hidden bg-gray-700">
-                            <img src="https://creatie.ai/ai/api/search-image?query=cyberpunk style gaming avatar with neon accents, digital art, highly detailed&width=128&height=128&orientation=squarish&flag=e22210cf-78fd-4242-8d9e-491248bc5a9f"
-                                alt="User Avatar" class="h-full w-full object-cover">
-                        </div>
-                        <span class="ml-2 text-sm font-medium hidden md:inline-block">{{ auth()->user()->name }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
+@section('content')
     <div class="max-w-8xl mx-auto px-4 py-8">
         <div class="grid grid-cols-12 gap-8">
             <div class="col-span-12 md:col-span-3">
@@ -129,8 +78,8 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <h3 class="font-medium">Completed Cyber Edge 2088</h3>
-                                <p class="text-gray-400 text-sm">Achieved 100% completion with all side missions
-                                    cleared!</p>
+                                <p class="text-gray-400 text-sm">Achieved 100% completion with all side missions cleared!
+                                </p>
                             </div>
                             <span class="text-sm text-gray-400">2h ago</span>
                         </div>
@@ -211,8 +160,7 @@
                                 <input type="checkbox" class="sr-only toggle-checkbox" checked>
                                 <div
                                     class="relative w-11 h-6 bg-gray-700 rounded-full toggle-container transition-colors duration-200">
-                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full">
-                                    </div>
+                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
                                 </div>
                             </label>
                         </div>
@@ -222,8 +170,7 @@
                                 <input type="checkbox" class="sr-only toggle-checkbox" checked>
                                 <div
                                     class="relative w-11 h-6 bg-gray-700 rounded-full toggle-container transition-colors duration-200">
-                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full">
-                                    </div>
+                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
                                 </div>
                             </label>
                         </div>
@@ -233,8 +180,7 @@
                                 <input type="checkbox" class="sr-only toggle-checkbox" checked>
                                 <div
                                     class="relative w-11 h-6 bg-gray-700 rounded-full toggle-container transition-colors duration-200">
-                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full">
-                                    </div>
+                                    <div class="toggle-circle absolute left-1 top-1 bg-white w-4 h-4 rounded-full"></div>
                                 </div>
                             </label>
                         </div>
@@ -245,8 +191,7 @@
                     <h2 class="text-xl font-semibold mb-4">Trophy Case</h2>
                     <div class="grid grid-cols-3 gap-4">
                         <div class="text-center">
-                            <div
-                                class="w-16 h-16 mx-auto bg-gray-700 rounded-lg flex items-center justify-center mb-2">
+                            <div class="w-16 h-16 mx-auto bg-gray-700 rounded-lg flex items-center justify-center mb-2">
                                 <i class="fas fa-trophy text-2xl text-yellow-500"></i>
                             </div>
                             <span class="text-sm">Elite</span>
@@ -258,8 +203,7 @@
                             <span class="text-sm">Master</span>
                         </div>
                         <div class="text-center">
-                            <div
-                                class="w-16 h-16 mx-auto bg-gray-700 rounded-lg flex items-center justify-center mb-2">
+                            <div class="w-16 h-16 mx-auto bg-gray-700 rounded-lg flex items-center justify-center mb-2">
                                 <i class="fas fa-star text-2xl text-purple-500"></i>
                             </div>
                             <span class="text-sm">Legend</span>
@@ -269,7 +213,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             new Glide('.glide', {
@@ -280,6 +226,4 @@
             }).mount();
         });
     </script>
-</body>
-
-</html>
+@endsection

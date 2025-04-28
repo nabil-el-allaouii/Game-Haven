@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHaven - Your Gateway to Gaming Excellence</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('title', 'GameHaven - Your Gateway to Gaming Excellence')
+
+@section('styles')
     <style>
         .gradient-text {
             background: linear-gradient(to right, #000000, #03a9f4);
@@ -26,35 +16,9 @@
             font-family: 'Orbitron', sans-serif;
         }
     </style>
-</head>
+@endsection
 
-<body class="bg-gray-900 text-white min-h-screen flex flex-col">
-    <header class="fixed w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
-        <nav class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0">
-                        <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png"
-                            alt="GameHaven">
-                    </a>
-                    <div class="hidden md:block ml-10">
-                        <div class="flex items-center space-x-8">
-                            <a href="#"
-                                class="text-custom hover:text-custom/80 px-3 py-2 text-sm font-medium">Browse</a>
-                            <a href="#"
-                                class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Library</a>
-                            <a href="#"
-                                class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Community</a>
-                        </div>
-                    </div>
-                </div>
-                <a href="/login"><button
-                        class="!rounded-button bg-custom hover:bg-custom/90 px-4 py-2 text-sm font-medium text-white">Sign
-                        In</button></a>
-            </div>
-        </nav>
-    </header>
-
+@section('content')
     <main class="flex-grow">
         <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
             <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -109,7 +73,7 @@
                                         <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black">
                                             <h3 class="text-lg font-bold">{{ $game->title }}</h3>
                                             @foreach ($game->genres->take(1) as $genre)
-                                                <p class="text-sm text-gray-300">{{$genre->genre}}</p>
+                                                <p class="text-sm text-gray-300">{{ $genre->genre }}</p>
                                             @endforeach
                                         </div>
                                     </div>
@@ -132,8 +96,7 @@
                 <div class="flex flex-wrap gap-4">
                     <button
                         class="!rounded-button bg-gray-800 hover:bg-gray-700 px-6 py-3 text-sm font-medium">Action</button>
-                    <button
-                        class="!rounded-button bg-gray-800 hover:bg-gray-700 px-6 py-3 text-sm font-medium">RPG</button>
+                    <button class="!rounded-button bg-gray-800 hover:bg-gray-700 px-6 py-3 text-sm font-medium">RPG</button>
                     <button
                         class="!rounded-button bg-gray-800 hover:bg-gray-700 px-6 py-3 text-sm font-medium">Strategy</button>
                     <button
@@ -174,52 +137,9 @@
             </div>
         </section>
     </main>
+@endsection
 
-    <footer class="bg-gray-900 border-t border-gray-800">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">COMPANY</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-300 hover:text-white">About</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Careers</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Press</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">SUPPORT</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-300 hover:text-white">Help Center</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Safety</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Terms</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">SOCIAL</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-300 hover:text-white flex items-center gap-2"><i
-                                    class="fab fa-discord"></i> Discord</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white flex items-center gap-2"><i
-                                    class="fab fa-twitter"></i> Twitter</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white flex items-center gap-2"><i
-                                    class="fab fa-instagram"></i> Instagram</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">LEGAL</h3>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-300 hover:text-white">Privacy</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Terms</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-white">Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-12 pt-8 border-t border-gray-800">
-                <p class="text-gray-400 text-sm text-center">&copy; 2024 GameHaven. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
+@section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             new Glide('.glide', {
@@ -238,6 +158,4 @@
             }).mount();
         });
     </script>
-</body>
-
-</html>
+@endsection
