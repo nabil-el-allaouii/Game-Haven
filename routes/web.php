@@ -7,6 +7,7 @@ use App\Http\Controllers\FavoriteGameController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScreenshotController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\ThreadReplyController;
@@ -34,9 +35,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/profile', function () {
-        return view('profile.profile');
-    })->name('profile');
+    Route::get('/profile', [ProfileController::class , 'showProfile'])->name('profile')->middleware('user');
     Route::post('/game/{id}' , [UserInteractionsController::class , 'review'])->name('game.review');
     Route::delete('/review/{id}' , [UserInteractionsController::class , 'deleteReview'])->name('review.destroy');
     Route::get('/forum',[ForumController::class , 'ShowForum'])->name('forum.show');
