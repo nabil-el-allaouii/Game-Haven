@@ -74,16 +74,20 @@
                             <div>
                                 <h1 id="GameTitle" class="text-3xl font-bold mb-1">{{ $game->gameTitle }}</h1>
                             </div>
-                            <div class="flex items-center space-x-3 mt-4 md:mt-0">
-                                <button
-                                    class="bg-primary hover:bg-purple-700 text-white px-4 py-2 rounded-button flex items-center whitespace-nowrap">
-                                    <i class="ri-shopping-cart-line mr-2"></i> {{ $game->price }}
-                                </button>
-                                <button
-                                    class="w-10 h-10 flex items-center justify-center border border-gray-600 rounded-button hover:bg-gray-700">
-                                    <i class="ri-heart-line"></i>
-                                </button>
-                            </div>
+                            @can('user')
+                                <div class="flex items-center space-x-3 mt-4 md:mt-0">
+                                    <form
+                                        action="{{ $game->favoriteByusers->contains(Auth::user()->id) ? route('game.unfavorite', $game->id) : route('favorite.store', $game->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-10 h-10 flex items-center justify-center border border-gray-600 rounded-button hover:bg-gray-700 cursor-pointer">
+                                            <i
+                                                class="{{ $game->favoriteByusers->contains(Auth::user()->id) ? 'ri-heart-fill text-red-500' : 'ri-heart-line' }}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endcan
                         </div>
 
                         <div class="flex items-center space-x-6 mb-6">
@@ -102,7 +106,7 @@
                             @error('alr')
                                 <div class="text-danger text-red-500 text-m">{{ $message }}</div>
                             @enderror
-                            @if (auth()->check() && auth()->user()->role !== 'admin')
+                            @can('user')
                                 <h3 class="text-lg font-semibold mb-3">Write a Review</h3>
                                 <form id="reviewForm" method="POST" action="{{ Route('game.review', $game->id) }}">
                                     @csrf
@@ -144,7 +148,7 @@
                                         Submit Review
                                     </button>
                                 </form>
-                            @endif
+                            @endcan
                         </div>
 
                         <div class="space-y-4">
@@ -260,20 +264,6 @@
                     autoplay: 5000
                 }).mount();
             }, 1000);
-
-            const heartButton = document.querySelector(".ri-heart-line").parentElement;
-            heartButton.addEventListener("click", function() {
-                const icon = this.querySelector("i");
-                if (icon.classList.contains("ri-heart-line")) {
-                    icon.classList.remove("ri-heart-line");
-                    icon.classList.add("ri-heart-fill");
-                    icon.classList.add("text-red-500");
-                } else {
-                    icon.classList.remove("ri-heart-fill");
-                    icon.classList.remove("text-red-500");
-                    icon.classList.add("ri-heart-line");
-                }
-            });
 
             const starButtons = document.querySelectorAll('.star-rating');
             let ratevalue = document.getElementById('rating');

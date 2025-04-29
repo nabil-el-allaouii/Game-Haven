@@ -17,17 +17,17 @@
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen font-sans">
+<body class="bg-gray-900 text-white min-h-screen font-sans">
 
     <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <!-- Page Header -->
         <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900">Add New Game</h1>
-                <p class="mt-1 text-sm text-gray-500">Add a new game to your library using the API or manual input.</p>
+                <h1 class="text-2xl font-bold text-white">Add New Game</h1>
+                <p class="mt-1 text-sm text-gray-400">Add a new game to your library using the API or manual input.</p>
             </div>
             <a href="/admin"
-                class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 border border-[#3A4049] shadow-sm text-sm font-medium rounded-md text-gray-300 bg-[#1e293b] hover:bg-[#2d3748] transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Back to Dashboard
             </a>
@@ -37,31 +37,31 @@
             <!-- Left Column -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Import Card -->
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h2 class="text-lg font-semibold text-gray-900">Import Game from API</h2>
+                <div class="bg-[#1e293b] rounded-lg shadow overflow-hidden">
+                    <div class="border-b border-[#3A4049] px-6 py-4">
+                        <h2 class="text-lg font-semibold text-white">Import Game from API</h2>
                     </div>
                     <div class="px-6 py-5">
                         <div class="space-y-4">
                             <div>
-                                <label for="test" class="block text-sm font-medium text-gray-700 mb-1">Game
+                                <label for="test" class="block text-sm font-medium text-gray-300 mb-1">Game
                                     Title</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i class="fas fa-gamepad text-gray-400"></i>
                                     </div>
                                     <input id="test" type="text"
-                                        class="block w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        class="block w-full pl-10 pr-4 py-2 border border-[#3A4049] rounded-md bg-[#283548] focus:ring-[#312e81] focus:border-[#312e81] sm:text-sm text-white"
                                         placeholder="Enter game title (e.g., Elden Ring, Minecraft)">
                                 </div>
-                                <p class="mt-2 text-xs text-gray-500 flex items-start">
+                                <p class="mt-2 text-xs text-gray-400 flex items-start">
                                     <i class="fas fa-info-circle mt-0.5 mr-1"></i>
                                     <span>Search for a game to import details automatically from our database.</span>
                                 </p>
                             </div>
                             <div class="flex justify-end">
                                 <button id="buttonFetch"
-                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#312e81] hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#312e81] transition-colors">
                                     <i class="fas fa-download mr-2"></i>
                                     Import Game
                                 </button>
@@ -71,28 +71,28 @@
                 </div>
 
                 <!-- Manual Entry Card -->
-                <div class="bg-white rounded-lg shadow overflow-hidden">
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h2 class="text-lg font-semibold text-gray-900">Manual Game Entry</h2>
+                <div class="bg-[#1e293b] rounded-lg shadow overflow-hidden">
+                    <div class="border-b border-[#3A4049] px-6 py-4">
+                        <h2 class="text-lg font-semibold text-white">Manual Game Entry</h2>
                     </div>
                     <div class="px-6 py-5">
                         <form class="space-y-5">
                             <div>
-                                <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Game
+                                <label for="title" class="block text-sm font-medium text-gray-300 mb-1">Game
                                     Title</label>
                                 <input type="text" id="title" name="title"
-                                    class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    class="block w-full px-4 py-2 border border-[#3A4049] rounded-md bg-[#283548] focus:ring-[#312e81] focus:border-[#312e81] sm:text-sm text-white"
                                     placeholder="Enter game title">
                             </div>
                             <div>
-                                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Cover Image
+                                <label for="image" class="block text-sm font-medium text-gray-300 mb-1">Cover Image
                                     URL</label>
                                 <div class="flex">
                                     <input type="text" id="image" name="cover_image"
-                                        class="block w-full rounded-l-md px-4 py-2 border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        class="block w-full rounded-l-md px-4 py-2 border border-[#3A4049] bg-[#283548] focus:ring-[#312e81] focus:border-[#312e81] sm:text-sm text-white"
                                         placeholder="https://example.com/image.jpg">
                                     <button type="button"
-                                        class="inline-flex items-center px-4 py-2 border border-l-0 border-gray-300 rounded-r-md bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100">
+                                        class="inline-flex items-center px-4 py-2 border border-l-0 border-[#3A4049] rounded-r-md bg-[#283548] text-sm font-medium text-gray-300 hover:bg-[#2d3748]">
                                         <i class="fas fa-upload mr-2"></i>
                                         Upload
                                     </button>
@@ -105,14 +105,14 @@
 
             <!-- Right Column - Preview -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-lg shadow overflow-hidden sticky top-20">
-                    <div class="border-b border-gray-200 px-6 py-4">
-                        <h2 class="text-lg font-semibold text-gray-900">Preview</h2>
+                <div class="bg-[#1e293b] rounded-lg shadow overflow-hidden sticky top-20">
+                    <div class="border-b border-[#3A4049] px-6 py-4">
+                        <h2 class="text-lg font-semibold text-white">Preview</h2>
                     </div>
                     <div class="p-0">
-                        <div class="relative bg-gray-200 aspect-w-3 aspect-h-4">
+                        <div class="relative bg-[#283548] aspect-w-3 aspect-h-4">
                             <img id="preview" class="w-full h-full object-cover" src=""
-                                onerror="this.src='https://placehold.co/400x500/e5e7eb/9ca3af?text=Game+Cover';this.onerror='';">
+                                onerror="this.src='https://placehold.co/400x500/1e293b/9ca3af?text=Game+Cover';this.onerror='';">
                             <!-- Gradient overlay for text readability -->
                             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-70"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-4">
@@ -133,31 +133,31 @@
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star-half-alt"></i>
                                 </div>
-                                <span id="preview-rating" class="ml-2 text-gray-700 font-medium">-</span>
-                                <span class="text-gray-700">/5.0</span>
+                                <span id="preview-rating" class="ml-2 text-gray-300 font-medium">-</span>
+                                <span class="text-gray-300">/5.0</span>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Genre Tags</label>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Genre Tags</label>
                                 <div id="genres" class="flex flex-wrap gap-2">
                                 </div>
                             </div>
 
                             <div>
                                 <label for="preview-price"
-                                    class="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                                    class="block text-sm font-medium text-gray-300 mb-1">Price</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500">$</span>
+                                        <span class="text-gray-400">$</span>
                                     </div>
                                     <input id="preview-price" type="text"
-                                        class="block w-full pl-7 pr-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        class="block w-full pl-7 pr-3 py-2 border border-[#3A4049] rounded-md bg-[#283548] focus:ring-[#312e81] focus:border-[#312e81] sm:text-sm text-white"
                                         placeholder="0.00">
                                 </div>
                             </div>
 
                             <div id="priceAlert"
-                                class="hidden bg-blue-50 text-blue-800 rounded-md p-3 text-sm flex items-start">
+                                class="hidden bg-blue-900 text-blue-300 rounded-md p-3 text-sm flex items-start">
                                 <i class="fas fa-info-circle mt-0.5 mr-2"></i>
                                 <span>Please enter the price for this game manually.</span>
                             </div>
@@ -170,21 +170,21 @@
 
     <!-- Action Buttons -->
     <div
-        class="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 py-3 px-4 z-10 backdrop-blur-sm bg-opacity-90">
+        class="fixed bottom-0 inset-x-0 bg-[#1e293b] border-t border-[#3A4049] py-3 px-4 z-10 backdrop-blur-sm bg-opacity-90">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-end space-x-3">
                 <button
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="inline-flex items-center px-4 py-2 border border-[#3A4049] shadow-sm text-sm font-medium rounded-md text-gray-300 bg-[#1e293b] hover:bg-[#2d3748] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#312e81]">
                     <i class="fas fa-save mr-2"></i>
                     Save Draft
                 </button>
                 <button id="publish"
-                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#312e81] hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#312e81]">
                     <i class="fas fa-paper-plane mr-2"></i>
                     Publish Game
                 </button>
                 <button
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    class="inline-flex items-center px-4 py-2 border border-[#3A4049] shadow-sm text-sm font-medium rounded-md text-gray-300 bg-[#1e293b] hover:bg-[#2d3748] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#312e81]">
                     <i class="fas fa-times mr-2"></i>
                     Cancel
                 </button>
@@ -233,7 +233,7 @@
                             var span = document.createElement("span");
                             span.innerText = genre["name"];
                             span.className =
-                                'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800';
+                                'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900 text-indigo-300';
                             genres.appendChild(span);
                         });
                         axios.get('/steamspy_data.json')
@@ -266,7 +266,7 @@
                             price: gameprice.value,
                             rating: previewRating.innerText,
                             cover: preview.src,
-                            platforms : game.platforms.map(p=> p.platform.name)
+                            platforms: game.platforms.map(p => p.platform.name)
                         }).catch(error => {
                             swal("ERROR!", error.response.data.message, "error");
                             return;

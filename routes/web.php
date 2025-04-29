@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FavoriteGameController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
@@ -45,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/thread/{id}' ,[ThreadController::class , 'destroy'])->name('thread.destroy');
     Route::post('/thread/{id}' , [ThreadReplyController::class , 'store'])->name('reply.thread');
     Route::delete('/reply/{id}',[ThreadReplyController::class,'destroy'])->name('reply.destroy');
+    Route::post('/game/{id}/favorite' , [FavoriteGameController::class , 'store'])->name('favorite.store');
+    Route::post('/game/{id}/unfavorite' , [FavoriteGameController::class, 'destroy'])->name('game.unfavorite');
 });
 
 Route::middleware(['auth','admin'])->group(function () {

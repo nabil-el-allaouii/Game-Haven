@@ -24,4 +24,8 @@ class Game extends Model
     public function threads(){
         return $this->hasMany(ForumThread::class);
     }
+
+    public function favoriteByusers(){
+        return $this->belongsToMany(User::class,'favorites','game_id','user_id')->withTimestamps();
+    }
 }

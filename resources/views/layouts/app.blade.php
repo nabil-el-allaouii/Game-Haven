@@ -16,7 +16,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('styles')
 </head>
@@ -34,13 +33,24 @@
         <div class="flex items-center space-x-4">
             @auth
                 <div class="flex items-center space-x-4">
-                    <a href="/dashboard"
-                        class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 whitespace-nowrap">
-                        <div class="flex items-center">
-                            <i class="fas fa-user mr-2"></i>
-                            Dashboard
-                        </div>
-                    </a>
+                    @can('user')
+                        <a href="/profile"
+                            class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i class="fas fa-user mr-2"></i>
+                                Dashboard
+                            </div>
+                        </a>
+                    @endcan
+                    @can('admin')
+                        <a href="/admin"
+                            class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i class="fas fa-user mr-2"></i>
+                                Dashboard
+                            </div>
+                        </a>
+                    @endcan
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
                         <button type="submit" class="text-gray-400 hover:text-white">

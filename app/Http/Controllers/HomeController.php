@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
     public function details(string $id)
     {
-        $game = Game::with('screenshots', 'reviews.user')->findOrFail($id);
+        $game = Game::with('screenshots', 'reviews.user','favoriteByusers')->findOrFail($id);
         $title = $game->gameTitle;
         $similarGames = Game::where('id', '!=', $id)->inRandomOrder()->limit(2)->get();
         $file = file_get_contents(storage_path('app/public/applist.json'));
