@@ -103,24 +103,7 @@
                         @enderror
                     </div>
                 </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center">
-                        <input id="age_verify" name="age_verify" type="checkbox" required
-                            class="h-4 w-4 bg-gray-800 border-gray-700 !rounded-button text-custom focus:ring-custom">
-                        <label for="age_verify" class="ml-2 block text-sm text-gray-300">I am at least 13 years
-                            old</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="terms" name="terms" type="checkbox" required
-                            class="h-4 w-4 bg-gray-800 border-gray-700 !rounded-button text-custom focus:ring-custom">
-                        <label for="terms" class="ml-2 block text-sm text-gray-300">
-                            I agree to the <a href="#" class="text-custom hover:text-custom-600">Terms of
-                                Service</a> and <a href="#" class="text-custom hover:text-custom-600">Privacy
-                                Policy</a>
-                        </label>
-                    </div>
-                </div>
+            
 
                 <button type="submit"
                     class="w-full flex justify-center py-3 px-4 border border-transparent !rounded-button text-white bg-custom hover:bg-custom/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom font-medium">
@@ -130,7 +113,7 @@
 
             <p class="text-center text-sm text-gray-400">
                 Already have an account?
-                <a href="" class="font-medium text-custom hover:text-custom-600">Sign in</a>
+                <a href="/login" class="font-medium text-custom hover:text-custom-600">Sign in</a>
             </p>
         </div>
     </main>

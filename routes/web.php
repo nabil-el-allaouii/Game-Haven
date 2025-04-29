@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScreenshotController;
+use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInteractionsController;
 use League\Uri\Contracts\UserInfoInterface;
@@ -35,12 +37,11 @@ Route::middleware('auth')->group(function () {
     })->name('profile');
     Route::post('/game/{id}' , [UserInteractionsController::class , 'review'])->name('game.review');
     Route::delete('/review/{id}' , [UserInteractionsController::class , 'deleteReview'])->name('review.destroy');
-    Route::get('/forum' , function(){
-        return view('forum.forum');
-    });
-    Route::get('/thread', function(){
-        return view('forum.add_thread');
-    });
+    Route::get('/forum',[ForumController::class , 'ShowForum'])->name('forum.show');
+    Route::get('/thread' , [ThreadController::class , 'viewAddThread']);
+    Route::post('/thread' , [ThreadController::class , 'store'])->name('thread.store');
+    Route::get('/thread/{id}',[ThreadController::class ,'viewContent'])->name('thread.content');
+    Route::delete('/thread/{id}' ,[ThreadController::class , 'destroy'])->name('thread.destroy');
 });
 
 Route::middleware(['auth','admin'])->group(function () {

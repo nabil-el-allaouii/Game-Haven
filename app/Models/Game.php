@@ -21,4 +21,7 @@ class Game extends Model
     public function reviews(){
         return $this->hasMany(Rating::class);
     }
+    public function threads(){
+        return $this->hasMany(ForumThread::class);
+    }
 }

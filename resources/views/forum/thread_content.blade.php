@@ -38,15 +38,21 @@
         <div class="max-w-4xl mx-auto">
             <div class="mb-6">
                 <div class="flex items-center justify-between">
-                    <h1 class="text-3xl font-bold text-white mb-3">Thread Title</h1>
-                    <button class="text-red-500 hover:text-red-600 transition flex items-center cursor-pointer bg-red-500 rounded-full px-2 py-1 text-white">
-                        <i class="ri-delete-bin-line mr-1.5"></i>
-                        <span>Delete Post</span>
-                    </button>
+                    <h1 class="text-3xl font-bold text-white mb-3">{{ $thread->title }}</h1>
+                    @can('delete-post', $thread)
+                        <form action="{{route('thread.destroy',$thread->id)}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button
+                                class="text-red-500 hover:text-white hover:bg-red-600 transition flex items-center cursor-pointer bg-red-500 rounded-full px-2 py-1 text-white">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </form>
+                    @endcan
                 </div>
                 <div class="flex flex-wrap items-center gap-4 mb-4">
                     <div class="bg-[#312e81] text-xs font-medium px-2.5 py-1 rounded-full">
-                        {{$thread->category}}
+                        {{ $thread->category }}
                     </div>
                     <div class="text-gray-400 text-sm flex items-center">
                         <i class="ri-message-3-line mr-1.5"></i>
@@ -54,7 +60,7 @@
                     </div>
                     <div class="text-gray-400 text-sm flex items-center">
                         <i class="ri-time-line mr-1.5"></i>
-                        {{$thread->created_at->diffForHumans()}}
+                        {{ $thread->created_at->diffForHumans() }}
                     </div>
                 </div>
             </div>
@@ -65,18 +71,18 @@
                         <div class="flex-shrink-0">
                             <div
                                 class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
-                                {{substr($thread->user->name, 0, 1)}}
+                                {{ substr($thread->user->name, 0, 1) }}
                             </div>
                         </div>
                         <div class="flex-grow">
                             <div class="flex items-center mb-2">
-                                <span class="font-medium text-white mr-2">{{$thread->user->name}}</span>
+                                <span class="font-medium text-white mr-2">{{ $thread->user->name }}</span>
                             </div>
                             <div class="prose prose-invert max-w-none">
-                                <p>{{$thread->content}}</p>
-                                @if($thread->media)
+                                <p>{{ $thread->content }}</p>
+                                @if ($thread->media)
                                     <div class="mt-4">
-                                        <img src="{{$thread->media}}" alt="Thread Image"
+                                        <img src="{{ $thread->media }}" alt="Thread Image"
                                             class="rounded-lg w-full h-auto object-cover">
                                     </div>
                                 @endif
