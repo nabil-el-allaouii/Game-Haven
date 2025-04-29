@@ -16,7 +16,7 @@
 
 /* Custom styles for GameHaven */
 :root {
-    --custom-color: #03a9f4;
+    --custom-color: #7c3aed;
 }
 
 /* Override custom color for specific pages */
@@ -77,4 +77,52 @@
 /* Use an escaped identifier for the ! character */
 .\!rounded-button {
     border-radius: 0.375rem !important;
+}
+
+body {
+    background-color: #111827;
+    color: #e5e7eb;
+    font-family: 'Inter', sans-serif;
+}
+
+.code-block {
+    background-color: #1f2937;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    overflow-x: auto;
+}
+
+.syntax-highlight .keyword {
+    color: #93c5fd;
+}
+
+.syntax-highlight .string {
+    color: #fca5a5;
+}
+
+.syntax-highlight .comment {
+    color: #9ca3af;
+}
+
+.syntax-highlight .function {
+    color: #c4b5fd;
+}
+
+.syntax-highlight .number {
+    color: #fdba74;
+}
+
+/* Custom animations */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.animate-slideDown {
+    animation: slideDown 0.3s ease-out;
 }

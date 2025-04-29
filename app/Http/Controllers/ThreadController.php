@@ -48,7 +48,7 @@ class ThreadController extends Controller
         return view('forum.add_thread',compact('games'));
     }
     public function viewContent(string $id){
-        $thread = ForumThread::with('user')->findOrFail($id);
+        $thread = ForumThread::with('user','replies.user')->findOrFail($id);
         return view('forum.thread_content',compact('thread'));
     }
     public function destroy(string $id){

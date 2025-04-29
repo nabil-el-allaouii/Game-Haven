@@ -51,4 +51,7 @@ class User extends Authenticatable
     public function threads(){
         return $this->hasMany(ForumThread::class);
     }
+    public function replies(){
+        return $this->hasMany(ThreadReply::class);
+    }
 }

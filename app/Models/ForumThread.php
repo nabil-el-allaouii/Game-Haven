@@ -13,4 +13,7 @@ class ForumThread extends Model
     public function game(){
         return $this->belongsTo(Game::class);
     }
+    public function replies(){
+        return $this->hasMany(ThreadReply::class);
+    }
 }

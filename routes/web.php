@@ -8,6 +8,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ScreenshotController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ThreadReplyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserInteractionsController;
 use League\Uri\Contracts\UserInfoInterface;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/thread' , [ThreadController::class , 'store'])->name('thread.store');
     Route::get('/thread/{id}',[ThreadController::class ,'viewContent'])->name('thread.content');
     Route::delete('/thread/{id}' ,[ThreadController::class , 'destroy'])->name('thread.destroy');
+    Route::post('/thread/{id}' , [ThreadReplyController::class , 'store'])->name('reply.thread');
+    Route::delete('/reply/{id}',[ThreadReplyController::class,'destroy'])->name('reply.destroy');
 });
 
 Route::middleware(['auth','admin'])->group(function () {
