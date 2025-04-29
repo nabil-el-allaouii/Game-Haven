@@ -23,6 +23,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if(Auth::user()->role === 'admin'){
+                return redirect()->route('dashboard.content');
+            }
             return redirect()->route('profile');
         } else {
             return back()->withErrors(['email' => 'invalid credentials']);
