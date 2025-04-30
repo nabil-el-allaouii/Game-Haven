@@ -39,14 +39,6 @@
                     <i class="fas fa-gamepad w-6"></i>
                     <span>Games</span>
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-[#2d3748]">
-                    <i class="fas fa-trophy w-6"></i>
-                    <span>Achievements</span>
-                </a>
-                <a href="#" class="flex items-center px-4 py-3 text-gray-300 hover:bg-[#2d3748]">
-                    <i class="fas fa-cog w-6"></i>
-                    <span>Settings</span>
-                </a>
             </nav>
         </aside>
 
@@ -345,8 +337,7 @@
                     <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                         id="games-grid">
                         @foreach ($games as $index => $game)
-                            <div class="game-card bg-[#1e293b] rounded-lg shadow overflow-hidden flex flex-col"
-                                style="{{ $index >= 4 ? 'display: none;' : '' }}">
+                            <div class="game-card bg-[#1e293b] rounded-lg shadow overflow-hidden flex flex-col">
                                 <div class="relative">
                                     <img class="h-48 w-full object-cover" src="{{ $game->cover }}"
                                         alt="{{ $game->gameTitle }}">
@@ -401,10 +392,7 @@
                     </div>
 
                     <div class="flex justify-center items-center mt-8">
-                        <button id="show-more" class="!rounded-button bg-[#312e81] text-white px-6 py-2.5 transition">
-                            <i class="fas fa-plus-circle mr-2"></i>
-                            Show More Games
-                        </button>
+                        {{ $games->links('pagination::tailwind') }}
                     </div>
                 </div>
             </div>
@@ -413,6 +401,7 @@
 
     <script>
         function showSection(sectionName) {
+            localStorage.setItem('activeSection', sectionName);
 
             document.querySelectorAll('.section-content').forEach(section => {
                 section.classList.add('hidden');
@@ -434,6 +423,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('activeSection');
+            showSection(saved);
+
             const activityChart = echarts.init(document.getElementById('activityChart'));
             const option = {
                 animation: false,
@@ -496,27 +488,6 @@
             };
             activityChart.setOption(option);
             window.addEventListener('resize', () => activityChart.resize());
-        });
-
-        let visibleCount = 4;
-        const step = 4;
-
-        document.getElementById('show-more').addEventListener('click', () => {
-            const games = document.querySelectorAll('.game-card');
-            let shownCount = 0;
-
-            for (let i = 0; i < games.length; i++) {
-                if (i >= visibleCount && shownCount < step) {
-                    games[i].style.display = '';
-                    shownCount++;
-                }
-            }
-
-            visibleCount += shownCount;
-
-            if (visibleCount >= games.length) {
-                document.getElementById('show-more').style.display = 'none';
-            }
         });
     </script>
 </body>

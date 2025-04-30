@@ -55,6 +55,6 @@ class User extends Authenticatable
         return $this->hasMany(ThreadReply::class);
     }
     public function favorites(){
-        return $this->belongsToMany(Favorite::class,'favorites','user_id','game_id')->withTimestamps();
+        return $this->belongsToMany(Game::class,'favorites','user_id','game_id')->withTimestamps();
     }
 }

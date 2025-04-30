@@ -14,12 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    backToTopButton.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    });
+   
 });
 
 // Sticky header on scroll

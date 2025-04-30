@@ -14,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'AlreadyAuth'=> \App\Http\Middleware\RedirectIfAuthenticated::class,
             'auth'=> \App\Http\Middleware\CheckAuth::class,
-            'admin'=> \App\Http\Middleware\Admin::class
+            'admin'=> \App\Http\Middleware\Admin::class,
+            'user'=>\App\Http\Middleware\UserAcess::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
