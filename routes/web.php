@@ -63,4 +63,5 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/admin/ban/{id}', [UserController::class, 'banUser'])->name('user.ban');
     Route::post('/admin/unban/{id}', [UserController::class, 'unbanUser'])->name('user.unban');
     Route::delete('/admin/delete/{id}', [UserController::class, 'deleteUser'])->name('user.delete');
+    Route::get('/admin/search' , [DashboardController::class , 'search'])->name('game.search');
 });

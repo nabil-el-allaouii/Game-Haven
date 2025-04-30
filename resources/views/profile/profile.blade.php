@@ -48,26 +48,6 @@
             </div>
 
             <div class="col-span-12 md:col-span-8 space-y-8">
-                <div class="bg-gray-800 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
-                    <div class="space-y-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-medium">Completed Cyber Edge 2088</h3>
-                                <p class="text-gray-400 text-sm">Achieved 100% completion with all side missions cleared!
-                                </p>
-                            </div>
-                            <span class="text-sm text-gray-400">2h ago</span>
-                        </div>
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-medium">New Achievement Unlocked</h3>
-                                <p class="text-gray-400 text-sm">Master Hacker: Completed all hacking challenges</p>
-                            </div>
-                            <span class="text-sm text-gray-400">5h ago</span>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="bg-gray-800 rounded-lg p-6">
                     <h2 class="text-xl font-semibold mb-6">Favorite Games</h2>
@@ -75,7 +55,7 @@
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
                                 @foreach ($favorites as $favorite)
-                                    <a href="/game/{{$favorite->id}}">
+                                    <a href="/game/{{ $favorite->id }}">
                                         <li class="glide__slide">
                                             <div class="relative rounded-lg overflow-hidden">
                                                 <img src="{{ $favorite->cover }}" alt="Game 1"

@@ -70,7 +70,7 @@
                             </div>
                             <div class="ml-4">
                                 <h2 class="text-sm font-medium text-gray-400">Total Users</h2>
-                                <p class="text-2xl font-semibold text-white">24,892</p>
+                                <p class="text-2xl font-semibold text-white">{{ $users->count() }}</p>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@
                                 <i class="fas fa-user-check text-xl"></i>
                             </div>
                             <div class="ml-4">
-                                <h2 class="text-sm font-medium text-gray-400">Active Today</h2>
-                                <p class="text-2xl font-semibold text-white">1,234</p>
+                                <h2 class="text-sm font-medium text-gray-400">Total Threads</h2>
+                                <p class="text-2xl font-semibold text-white">{{ $TotalThreads }}</p>
                             </div>
                         </div>
                     </div>
@@ -92,65 +92,17 @@
                             </div>
                             <div class="ml-4">
                                 <h2 class="text-sm font-medium text-gray-400">Total Games</h2>
-                                <p class="text-2xl font-semibold text-white">412</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-[#1e293b] p-6 rounded-lg shadow">
-                        <div class="flex items-center">
-                            <div class="p-3 rounded-full bg-yellow-900 text-yellow-400">
-                                <i class="fas fa-user-plus text-xl"></i>
-                            </div>
-                            <div class="ml-4">
-                                <h2 class="text-sm font-medium text-gray-400">New Users (24h)</h2>
-                                <p class="text-2xl font-semibold text-white">89</p>
+                                <p class="text-2xl font-semibold text-white">{{ $gamesCount }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 bg-[#1e293b] rounded-lg shadow">
+                    <div class="lg:col-span-3 bg-[#1e293b] rounded-lg shadow">
                         <div class="p-6">
-                            <h2 class="text-lg font-semibold text-white mb-4">User Activity</h2>
-                            <div id="activityChart" style="height: 300px;"></div>
-                        </div>
-                    </div>
-                    <div class="bg-[#1e293b] rounded-lg shadow">
-                        <div class="p-6">
-                            <h2 class="text-lg font-semibold text-white mb-4">Recent Activity</h2>
-                            <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center text-green-400">
-                                        <i class="fas fa-user-plus text-sm"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-white">New user registered</p>
-                                        <p class="text-xs text-gray-400">2 minutes ago</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center text-blue-400">
-                                        <i class="fas fa-gamepad text-sm"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-white">New game added</p>
-                                        <p class="text-xs text-gray-400">15 minutes ago</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-yellow-900 flex items-center justify-center text-yellow-400">
-                                        <i class="fas fa-exclamation-triangle text-sm"></i>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-white">System alert</p>
-                                        <p class="text-xs text-gray-400">1 hour ago</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h2 class="text-lg font-semibold text-white mb-4">Data Distribution</h2>
+                            <div id="distributionChart" style="height: 300px;"></div>
                         </div>
                     </div>
                 </div>
@@ -171,8 +123,7 @@
                                 <div class="relative">
                                     <input type="text" placeholder="Search users..."
                                         class="w-full pl-10 pr-4 py-2 bg-[#283548] border border-[#3A4049] rounded-md focus:ring-[#312e81] focus:border-[#312e81] text-white">
-                                    <i
-                                        class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                                 </div>
                             </div>
                             <div class="flex gap-4">
@@ -219,7 +170,6 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-[#1e293b] divide-y divide-[#3A4049]">
-                                <!-- Sample User Row -->
                                 @foreach ($users as $user)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -284,14 +234,13 @@
                 </div>
             </div>
 
-            <!-- Games Section -->
             <div id="games-section" class="section-content hidden">
                 <header class="bg-[#1e293b] shadow">
                     <div class="px-6 py-4 flex items-center justify-between">
                         <h1 class="text-2xl font-semibold text-white">Game Management</h1>
                         <div class="flex items-center space-x-4">
                             <a href="/add-game">
-                                <button class="!rounded-button bg-[#312e81] text-white px-4 py-2">
+                                <button class="!rounded-button bg-[#312e81] text-white px-4 py-2 cursor-pointer">
                                     <i class="fas fa-plus mr-2"></i>Add New Game
                                 </button>
                             </a>
@@ -300,36 +249,18 @@
                 </header>
 
                 <div class="p-6">
-                    <!-- Search and Filter Section -->
                     <div class="bg-[#1e293b] rounded-lg shadow mb-6">
                         <div class="p-4 flex flex-wrap gap-4 items-center justify-between">
                             <div class="flex-1 min-w-[200px]">
-                                <div class="relative">
-                                    <input type="text" placeholder="Search games..."
-                                        class="w-full pl-10 pr-4 py-2 bg-[#283548] border border-[#3A4049] rounded-md focus:ring-[#312e81] focus:border-[#312e81] text-white">
-                                    <i
-                                        class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <select
-                                    class="bg-[#283548] border border-[#3A4049] rounded-md px-4 py-2 focus:ring-[#312e81] focus:border-[#312e81] text-white">
-                                    <option>All Genres</option>
-                                    <option>Action</option>
-                                    <option>Adventure</option>
-                                    <option>RPG</option>
-                                    <option>Strategy</option>
-                                    <option>Sports</option>
-                                </select>
-                                <select
-                                    class="bg-[#283548] border border-[#3A4049] rounded-md px-4 py-2 focus:ring-[#312e81] focus:border-[#312e81] text-white">
-                                    <option>Sort By</option>
-                                    <option>Newest</option>
-                                    <option>Oldest</option>
-                                    <option>Most Popular</option>
-                                    <option>Price: Low to High</option>
-                                    <option>Price: High to Low</option>
-                                </select>
+                                <form action="{{ route('game.search') }}" method="GET">
+                                    @csrf
+                                    <div class="relative">
+                                        <input name="search" type="text" placeholder="Search games..."
+                                            class="w-full pl-10 pr-4 py-2 bg-[#283548] border border-[#3A4049] rounded-md focus:ring-[#312e81] focus:border-[#312e81] text-white">
+                                        <i
+                                            class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -392,7 +323,7 @@
                     </div>
 
                     <div class="flex justify-center items-center mt-8">
-                        {{ $games->links('pagination::tailwind') }}
+                        {{ $games->appends(['search' => request('search')])->links() }}
                     </div>
                 </div>
             </div>
@@ -424,70 +355,77 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem('activeSection');
-            showSection(saved);
+            showSection(saved || 'dashboard');
 
-            const activityChart = echarts.init(document.getElementById('activityChart'));
-            const option = {
-                animation: false,
+            // Distribution Pie Chart
+            const distributionChart = echarts.init(document.getElementById('distributionChart'));
+            const distributionOption = {
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}: {c} ({d}%)'
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    axisLine: {
-                        lineStyle: {
-                            color: '#4B5563'
-                        }
-                    },
-                    axisLabel: {
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    textStyle: {
                         color: '#9CA3AF'
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#4B5563'
-                        }
-                    },
-                    axisLabel: {
-                        color: '#9CA3AF'
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: '#374151'
-                        }
                     }
                 },
                 series: [{
-                    name: 'Active Users',
-                    type: 'line',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320],
-                    smooth: true,
-                    lineStyle: {
-                        color: '#6366f1'
+                    name: 'Platform Data',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#1E293B',
+                        borderWidth: 2
                     },
-                    areaStyle: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                            offset: 0,
-                            color: 'rgba(99, 102, 241, 0.3)'
-                        }, {
-                            offset: 1,
-                            color: 'rgba(99, 102, 241, 0.1)'
-                        }])
-                    }
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 16,
+                            fontWeight: 'bold',
+                            color: '#FFFFFF'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [{
+                            value: {{ $users->count() }},
+                            name: 'Users',
+                            itemStyle: {
+                                color: '#6366F1'
+                            }
+                        },
+                        {
+                            value: {{ $TotalThreads }},
+                            name: 'Threads',
+                            itemStyle: {
+                                color: '#10B981'
+                            }
+                        },
+                        {
+                            value: {{ $gamesCount }},
+                            name: 'Games',
+                            itemStyle: {
+                                color: '#8B5CF6'
+                            }
+                        }
+                    ]
                 }]
             };
-            activityChart.setOption(option);
-            window.addEventListener('resize', () => activityChart.resize());
+            distributionChart.setOption(distributionOption);
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                distributionChart.resize();
+            });
         });
     </script>
 </body>
