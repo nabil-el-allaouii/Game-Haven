@@ -165,7 +165,7 @@
                                                 <div class="w-4 h-4 flex items-center justify-center mr-1">
                                                     <i class="ri-message-3-line"></i>
                                                 </div>
-                                                <span>94 replies</span>
+                                                <span>{{$thread->replies->count()}} replies</span>
                                             </div>
                                         </div>
                                     </div>

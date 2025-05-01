@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ForumController extends Controller
 {
     public function ShowForum(){
-        $threads = ForumThread::with('game','user')->paginate(5);
+        $threads = ForumThread::with('game','user','replies')->paginate(5);
         $topContributors = User::withCount('threads')->orderByDesc('threads_count')->having('threads_count','!=',0)->limit(3)->get(); 
         $gamesWithThreads = Game::withCount('threads')->orderByDesc('threads_count')->having('threads_count','!=',0)->limit(4)->get();
         $DiscussionThreads = ForumThread::where('category','=','Game Discussion')->count();
