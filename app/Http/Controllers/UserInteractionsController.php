@@ -17,7 +17,7 @@ class UserInteractionsController extends Controller
         ]);
         $game = Game::findOrFail($id);
         $user_id = $request->user()->id;
-        $AlrReviewed = Rating::where('user_id' ,'=',$user_id)->first();
+        $AlrReviewed = Rating::where('user_id' ,'=',$user_id)->where('game_id','=',$game->id)->first();
         if (!$AlrReviewed) {
             Rating::create([
                 'rating' => $validated['rating'],
