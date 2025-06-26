@@ -87,15 +87,15 @@
                     <label for="thread_type" class="block text-gray-300 mb-2">Thread Type</label>
                     <select id="thread_type" name="Type"
                         class="w-full bg-[#252B34] border border-[#3A4049] rounded px-4 py-3 text-white rounded-button">
-                        <option value="guide">Guide</option>
-                        <option value="bug">Bug Report</option>
-                        <option value="discussion">Discussion</option>
-                        <option value="question">Question</option>
-                        <option value="news">News</option>
-                        <option value="tips">Tips & Tricks</option>
-                        <option value="mod">Mod</option>
-                        <option value="review">Review</option>
-                        <option value="suggestion">Suggestion</option>
+                        <option value="Guide">Guide</option>
+                        <option value="Bug">Bug Report</option>
+                        <option value="Discussion">Discussion</option>
+                        <option value="Question">Question</option>
+                        <option value="News">News</option>
+                        <option value="Tips & Tricks">Tips & Tricks</option>
+                        <option value="Mod">Mod</option>
+                        <option value="Review">Review</option>
+                        <option value="Suggestion">Suggestion</option>
                     </select>
                 </div>
 
